@@ -4,31 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet'emote: Main Application</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Poppins Font for consistent design -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Variables for Dark Mode */
+        /* Variables for Warm Paws Theme */
         :root {
-            --primary-color: #8A4DC4; /* Darker Lavender Dream Primary */
-            --primary-hover: #723BAA; /* Even Darker Lavender Dream */
-            --bg-light: #f0f4f8; /* Light blue-gray background */
-            --bg-dark: #121212; /* Very Dark Background for contrast */
+            --primary-color: #FF6B6B; /* Coral / Love */
+            --primary-hover: #EE5253; 
+            --accent-color: #4ECDC4; /* Mint / Calm */
+            
+            --bg-light: #FFF9F0; /* Warm Cream */
+            --bg-dark: #2D2424; /* Dark Cocoa */
+            
             --card-bg-light: #ffffff;
-            --card-bg-dark: #1e1e1e; /* Darker card background for contrast */
-            --text-color-light: #2d3748; /* Dark gray text */
-            --text-color-dark: #e0e0e0; /* Lighter gray text for dark mode */
-            --border-color-light: #e2e8f0;
-            --border-color-dark: #3a3a3a; /* Darker border for dark mode */
-            --shadow-light: rgba(0, 0, 0, 0.15); /* Slightly darker shadow for light mode */
-            --shadow-dark: rgba(0, 0, 0, 0.6); /* Adjusted for better dark mode visibility */
-            --header-bg-light: #ffffff;
-            --header-bg-dark: #1e1e1e; /* Consistent with card background */
+            --card-bg-dark: #3A3030; /* Lighter Cocoa */
+            
+            --text-color-light: #4A403A; /* Dark Brown Text */
+            --text-color-dark: #F0E6D2; /* Cream Text */
+            
+            --border-color-light: #F0E6D2;
+            --border-color-dark: #5C4B4B;
+            
+            --shadow-light: 0 10px 30px rgba(74, 64, 58, 0.08);
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.4);
+            
+            --header-bg-light: rgba(255, 255, 255, 0.95);
+            --header-bg-dark: rgba(58, 48, 48, 0.95);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Nunito', sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-light);
@@ -38,22 +46,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Playful background pattern */
+            background-image: radial-gradient(var(--border-color-light) 2px, transparent 2px);
+            background-size: 30px 30px;
         }
 
         /* Dark Mode Styles */
         body.dark {
-            --bg-light: #121212;
-            --bg-dark: #121212;
-            --card-bg-light: #1e1e1e;
-            --card-bg-dark: #1e1e1e;
-            --text-color-light: #e0e0e0;
-            --text-color-dark: #e0e0e0;
-            --border-color-light: #3a3a3a;
-            --border-color-dark: #4a4a4a;
-            --shadow-light: rgba(0, 0, 0, 0.6);
-            --shadow-dark: rgba(0, 0, 0, 0.8);
-            --header-bg-light: #1e1e1e;
-            --header-bg-dark: #1e1e1e;
+            --bg-light: var(--bg-dark);
+            --text-color-light: var(--text-color-dark);
+            background-image: radial-gradient(#3a3030 2px, transparent 2px);
         }
 
         /* Global Styles */
@@ -65,14 +67,20 @@
         header {
             width: 100%;
             background-color: var(--header-bg-light);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 15px 40px;
-            box-shadow: 0 4px 12px var(--shadow-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        body.dark header {
+            background-color: var(--header-bg-dark);
+            border-bottom-color: var(--primary-color);
         }
 
         header .logo-container {
@@ -81,21 +89,22 @@
         }
 
         header img.logo {
-            height: 80px; /* Adjusted logo size for better fit */
-            width: 80px;
+            height: 60px;
+            width: 60px;
             margin-right: 15px;
-            border-radius: 8px;
+            border-radius: 50%;
             object-fit: cover;
+            border: 3px solid var(--primary-color);
+            background: white;
+            padding: 2px;
         }
 
         header h1.site-title {
             font-size: 28px;
-            color: var(--text-color-light);
+            color: var(--primary-color);
             margin: 0;
-            font-weight: 700;
-        }
-        body.dark header h1.site-title {
-            color: var(--text-color-dark);
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         nav {
@@ -104,126 +113,129 @@
         }
 
         nav a {
-            margin-left: 30px;
+            margin-left: 15px;
             text-decoration: none;
             color: var(--text-color-light);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 16px;
-            transition: color 0.3s ease;
-            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px; /* Pill shape links */
         }
-        body.dark nav a {
-            color: var(--text-color-dark);
-        }
+        
+        /* Remove old underline effect */
+        nav a::after { display: none; }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            display: block;
-            margin-top: 5px;
-            right: 0;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after, nav a.active-nav-link::after {
-            width: 100%;
-            left: 0;
-            background: var(--primary-color);
-        }
         nav a:hover, nav a.active-nav-link {
-            color: var(--primary-color);
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
         }
 
         /* Main Content Area */
         main {
-            width: 100%;
-            max-width: 960px;
-            padding: 40px 20px;
+            width: 95%;
+            max-width: 1000px;
+            padding: 40px 30px;
             margin: 40px auto;
             background-color: var(--card-bg-light);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px var(--shadow-light);
+            border-radius: 30px; /* Highly rounded container */
+            box-shadow: var(--shadow-light);
             overflow: hidden;
             position: relative;
-            min-height: 500px; /* Ensure content doesn't collapse */
+            min-height: 500px;
+            border: 1px solid var(--border-color-light);
+        }
+        body.dark main {
+            background-color: var(--card-bg-dark);
+            border-color: var(--border-color-dark);
+            box-shadow: var(--shadow-dark);
         }
 
         /* Section Transitions */
         section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            padding: 20px;
-            max-width: 700px; /* Reduced for content focus */
+            transform: scale(0.98) translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 10px;
+            max-width: 800px; 
             margin: 0 auto;
-            display: none; /* Hidden by default */
+            display: none; 
         }
 
         section.active {
             opacity: 1;
-            transform: translateY(0);
-            display: block; /* Show active section */
+            transform: scale(1) translateY(0);
+            display: block; 
         }
 
         h2.section-heading {
             text-align: center;
-            margin-bottom: 35px;
-            font-weight: 700;
+            margin-bottom: 30px;
+            font-weight: 800;
             color: var(--primary-color);
             font-size: 32px;
         }
 
         h3, h4 {
             color: var(--text-color-light);
-            margin-top: 30px;
+            margin-top: 25px;
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
         }
-        body.dark h3, body.dark h4 {
-            color: var(--text-color-dark);
-        }
-        h3 { font-size: 24px; }
-        h4 { font-size: 20px; }
-
+        body.dark h3, body.dark h4 { color: var(--text-color-dark); }
+        
+        /* Paragraphs */
         p {
             font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;
             color: var(--text-color-light);
         }
-        body.dark p {
+
+        /* --- Input Styling (Global) --- */
+        input[type="text"], 
+        input[type="number"], 
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color-light);
+            border-radius: 15px;
+            font-size: 16px;
+            background-color: var(--bg-light);
+            color: var(--text-color-light);
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            outline: none;
+        }
+        body.dark input {
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
             color: var(--text-color-dark);
         }
-
-        ul.features-list {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 30px;
+        input:focus {
+            border-color: var(--accent-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.2);
         }
-
-        ul.features-list li {
-            background-color: var(--bg-light);
-            padding: 15px 25px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow-light);
-            font-weight: 500;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border-left: 4px solid var(--primary-color);
-        }
-        body.dark ul.features-list li {
+        body.dark input:focus {
             background-color: var(--card-bg-dark);
         }
-        ul.features-list li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-light);
+
+        /* --- Button Styling (Global) --- */
+        button, .file-input-label {
+            border-radius: 50px !important; /* Pill shape */
+            font-family: 'Nunito', sans-serif !important;
+            font-weight: 800 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease !important;
         }
 
         /* Analyzer Section specific styles */
-        .analyzer-content { /* New wrapper for analyzer content to contain it within section max-width */
+        .analyzer-content {
             max-width: 600px;
             margin: 0 auto;
             display: flex;
@@ -236,505 +248,101 @@
             overflow: hidden;
             display: inline-block;
             width: 100%;
+            border: 2px dashed var(--accent-color);
+            border-radius: 20px;
+            background-color: rgba(78, 205, 196, 0.1);
+            transition: all 0.3s ease;
         }
-        .file-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
+        .file-input-wrapper:hover {
+            background-color: rgba(78, 205, 196, 0.2);
         }
+
         .file-input-label {
             display: block;
-            padding: 12px 24px;
-            background-color: #60a5fa; /* Blue-500 */
-            color: white;
-            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: var(--accent-color);
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 600;
+            font-weight: 700;
         }
-        .file-input-label:hover {
-            background-color: #3b82f6; /* Blue-600 */
-        }
+        
         #imagePreview {
             max-width: 100%;
             max-height: 300px;
-            border-radius: 12px;
+            border-radius: 20px;
             object-fit: contain;
             margin: 0 auto;
-            display: none; /* Hidden by default */
-            border: 1px solid #e2e8f0; /* Gray-200 */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-        body.dark #imagePreview {
-            border-color: var(--border-color-dark);
+            display: none; 
+            border: 3px solid var(--border-color-light);
+            box-shadow: var(--shadow-light);
         }
 
         .loading-spinner {
-            border: 4px solid var(--border-color-light); /* Adjusted to use var */
-            border-top: 4px solid var(--primary-color); /* Adjusted to use var */
+            border: 4px solid var(--border-color-light);
+            border-top: 4px solid var(--primary-color);
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
-            display: none; /* Hidden by default */
-        }
-        body.dark .loading-spinner {
-            border-color: var(--border-color-dark);
-            border-top-color: var(--primary-color);
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            margin: 20px auto;
+            display: none; 
         }
 
-        #analyzeButton {
-            background-color: var(--primary-color); /* Adjusted to use var */
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            border: none;
-            width: 100%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            margin-top: 15px;
-        }
-        #analyzeButton:hover {
-            background-color: var(--primary-hover); /* Adjusted to use var */
-            transform: translateY(-2px);
-        }
-        #analyzeButton:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        #resultDisplay {
+        /* Result Boxes */
+        #resultDisplay, #personalizedResultDisplay {
             background-color: var(--bg-light);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 25px;
+            border-radius: 20px;
             text-align: left;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color-light);
-            margin-top: 0; /* Adjusted from previous 20px */
+            border: 2px solid var(--border-color-light);
+            margin-top: 10px;
         }
-        body.dark #resultDisplay {
-            background-color: var(--card-bg-dark);
+        body.dark #resultDisplay, body.dark #personalizedResultDisplay {
+            background-color: var(--bg-dark);
             border-color: var(--border-color-dark);
         }
-        #resultDisplay h2 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        #emotionText {
-            color: var(--text-color-light);
-            font-style: italic;
-        }
-        body.dark #emotionText {
-            color: var(--text-color-dark);
-        }
-
 
         /* Profile Section */
         .profile-info {
             background-color: var(--bg-light);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 2px 8px var(--shadow-light);
+            border: 1px solid var(--border-color-light);
             margin-bottom: 20px;
         }
         body.dark .profile-info {
-            background-color: var(--card-bg-dark);
-        }
-        .profile-info p {
-            margin: 5px 0;
-        }
-        .profile-info strong {
-            color: var(--primary-color);
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
         }
         .logout-button {
-            background-color: #ef4444; /* Red-500 */
+            background-color: #FF6B6B;
             color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            padding: 15px 30px;
+            width: 100%;
             border: none;
-            margin-top: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
         .logout-button:hover {
-            background-color: #dc2626; /* Red-600 */
+            background-color: #EE5253;
             transform: translateY(-2px);
-        }
-
-
-        /* Modal Styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: var(--card-bg-light);
-            margin: auto;
-            padding: 20px;
-            border: 1px solid var(--border-color-light);
-            width: 80%;
-            max-width: 400px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--shadow-light);
-            text-align: center;
-            position: relative;
-        }
-        body.dark .modal-content {
-            background-color: var(--card-bg-dark);
-            border-color: var(--border-color-dark);
-        }
-        .close-button {
-            color: var(--text-color-light);
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-        }
-        body.dark .close-button {
-            color: var(--text-color-dark);
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: var(--primary-color);
-            text-decoration: none;
-            cursor: pointer;
-        }
-        #modalOkButton {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            border: none;
-            margin-top: 15px;
-        }
-        #modalOkButton:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        /* New Modal for Article Content */
-        #articleModal .modal-content {
-            max-width: 800px; /* Wider for articles */
-            text-align: left; /* Text alignment for article content */
-            max-height: 90vh; /* Max height to allow scrolling */
-            overflow-y: auto; /* Enable scrolling for long articles */
-        }
-        #articleModal h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        #articleModal p, #articleModal ul, #articleModal ol {
-            color: var(--text-color-light);
-            margin-bottom: 15px;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-        body.dark #articleModal p, body.dark #articleModal ul, body.dark #articleModal ol {
-            color: var(--text-color-dark);
-        }
-        #articleModal ul, #articleModal ol {
-            padding-left: 25px;
-        }
-        #articleModal ul li {
-            list-style: disc;
-            margin-bottom: 8px;
-            background: transparent;
-            box-shadow: none;
-            border-left: none;
-            padding: 0;
-        }
-        #articleModal ol li {
-            list-style: decimal;
-            margin-bottom: 8px;
-            background: transparent;
-            box-shadow: none;
-            border-left: none;
-            padding: 0;
-        }
-
-
-        /* Dark Mode Toggle */
-        .toggle-dark {
-            position: relative;
-            display: inline-block;
-            width: 55px;
-            height: 30px;
-            border-radius: 30px;
-            background-color: var(--border-color-light);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            vertical-align: middle;
-            margin-left: 20px;
-            border: none;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-        }
-        body.dark .toggle-dark {
-            background-color: var(--border-color-dark);
-        }
-
-        .toggle-dark input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-            left: -9999px;
-        }
-
-        .toggle-thumb {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            transition: left 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        body.dark .toggle-dark input:checked + .toggle-thumb {
-            background-color: #f0f0f0; /* Light thumb on dark checked */
-        }
-
-
-        .toggle-dark input:checked + .toggle-thumb {
-            left: 28px;
-            transform: rotate(360deg);
-        }
-
-
-        /* Footer */
-        footer {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background-color: var(--header-bg-light);
-            color: var(--text-color-light);
-            font-size: 14px;
-            margin-top: auto;
-            box-shadow: 0 -2px 8px var(--shadow-light);
-            border-top: 1px solid var(--border-color-light);
-        }
-        body.dark footer {
-            background-color: var(--header-bg-dark);
-            color: var(--text-color-dark);
-            border-top-color: var(--border-color-dark);
-        }
-
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px 20px;
-                text-align: center;
-            }
-            header .logo-container {
-                margin-bottom: 15px;
-            }
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            nav a {
-                margin: 0 15px 10px;
-            }
-            header h1.site-title {
-                font-size: 24px;
-            }
-            main {
-                margin: 20px auto;
-                padding: 20px 15px;
-            }
-            h2.section-heading {
-                font-size: 28px;
-                margin-bottom: 25px;
-            }
-            ul.features-list li {
-                padding: 12px 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header img.logo {
-                height: 50px;
-                width: 50px;
-            }
-            header h1.site-title {
-                font-size: 20px;
-            }
-            nav a {
-                margin: 0 10px 8px;
-                font-size: 14px;
-            }
-            main {
-                padding: 15px;
-                margin: 15px;
-            }
-            h2.section-heading {
-                font-size: 24px;
-            }
-            p, ul.features-list li, #analyzeButton {
-                font-size: 15px;
-            }
-            #analyzeButton {
-                padding: 12px;
-                font-size: 16px;
-            }
-        }
-
-        .article-card {
-            background-color: var(--bg-light);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 5px solid var(--primary-color);
-        }
-        body.dark .article-card {
-            background-color: var(--card-bg-dark);
-        }
-        .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px var(--shadow-light);
-        }
-        .article-card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-        .article-card p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--text-color-light);
-            margin-bottom: 15px;
-        }
-        body.dark .article-card p {
-            color: var(--text-color-dark);
-        }
-        .article-card a {
-            color: #3b82f6; /* Blue-500 for links */
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .article-card a:hover {
-            color: #2563eb; /* Blue-600 */
-            text-decoration: underline;
-        }
-
-        /* Specific styles for Personalized Content inputs and text to ensure dark mode visibility */
-        #personalized-content input[type="text"],
-        #personalized-content input[type="number"] {
-            color: var(--text-color-light); /* Default color for inputs */
-            background-color: var(--bg-light); /* Default background for inputs */
-            border-color: var(--border-color-light);
-        }
-
-        body.dark #personalized-content input[type="text"],
-        body.dark #personalized-content input[type="number"] {
-            color: var(--text-color-dark); /* Dark mode text color for inputs */
-            background-color: var(--card-bg-dark); /* Dark mode background for inputs */
-            border-color: var(--border-color-dark);
-        }
-
-        /* Placeholder text color for inputs */
-        #personalized-content input::placeholder {
-            color: var(--text-color-light); /* Default placeholder color */
-            opacity: 0.7; /* Make it slightly transparent for better contrast */
-        }
-
-        body.dark #personalized-content input::placeholder {
-            color: var(--text-color-dark); /* Dark mode placeholder color */
-            opacity: 0.7;
-        }
-
-        #personalizedContentText {
-            color: var(--text-color-light); /* Default color */
-        }
-        body.dark #personalizedContentText {
-            color: var(--text-color-dark); /* Dark mode color */
-        }
-        
-        /* Styling for Markdown-generated content */
-        #personalizedContentText h3, 
-        #personalizedContentText h2, 
-        #personalizedContentText h4 {
-            color: var(--primary-color);
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        #personalizedContentText ul,
-        #personalizedContentText ol {
-            list-style-position: inside;
-            padding-left: 15px;
-            margin-bottom: 15px;
-        }
-
-        #personalizedContentText li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-
-        #personalizedContentText p {
-            margin-bottom: 15px;
-        }
-
-        #personalizedContentText strong {
-            font-weight: 600;
         }
 
         /* Chatbot Section */
         .chatbot-container {
             max-width: 700px;
             margin: 0 auto;
-            border: 1px solid var(--border-color-light);
-            border-radius: 12px;
+            border: 2px solid var(--border-color-light);
+            border-radius: 25px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            height: 60vh; /* Set a fixed height */
+            height: 60vh; 
             background-color: var(--bg-light);
         }
         body.dark .chatbot-container {
             border-color: var(--border-color-dark);
-            background-color: var(--card-bg-dark);
+            background-color: var(--bg-dark);
         }
 
         .chat-window {
@@ -747,10 +355,12 @@
         }
 
         .chat-message {
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 15px 20px;
+            border-radius: 20px;
             max-width: 80%;
             line-height: 1.5;
+            font-size: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .chat-message.user {
@@ -761,11 +371,11 @@
         }
 
         .chat-message.bot {
-            background-color: var(--card-bg-light);
+            background-color: white;
             color: var(--text-color-light);
             align-self: flex-start;
-            border: 1px solid var(--border-color-light);
             border-bottom-left-radius: 4px;
+            border: 1px solid var(--border-color-light);
         }
         body.dark .chat-message.bot {
             background-color: var(--card-bg-dark);
@@ -773,78 +383,208 @@
             border-color: var(--border-color-dark);
         }
 
-        .chat-message.bot.thinking {
-            font-style: italic;
-            color: #9ca3af; /* gray-400 */
-        }
-        body.dark .chat-message.bot.thinking {
-            color: #6b7280; /* gray-500 */
-        }
-
-
         .chat-input-area {
             display: flex;
             padding: 15px;
             border-top: 1px solid var(--border-color-light);
-            background-color: var(--card-bg-light);
+            background-color: white;
+            gap: 10px;
         }
         body.dark .chat-input-area {
             border-top-color: var(--border-color-dark);
             background-color: var(--header-bg-dark);
         }
-
+        
+        /* Overriding input style for chat to remove bottom margin */
         #chat-input {
-            flex-grow: 1;
-            padding: 12px;
-            border: 1px solid var(--border-color-light);
-            border-radius: 8px;
-            margin-right: 10px;
-            font-size: 16px;
-            color: var(--text-color-light);
-            background-color: var(--bg-light);
-        }
-        body.dark #chat-input {
-            border-color: var(--border-color-dark);
-            color: var(--text-color-dark);
-            background-color: var(--card-bg-dark);
+            margin-bottom: 0;
+            border-radius: 25px;
         }
 
         #send-chat-button {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
+            padding: 0 25px;
+            border-radius: 25px;
         }
         #send-chat-button:hover {
-            background-color: var(--primary-hover);
-        }
-        #send-chat-button:disabled,
-        #generateContentButton:disabled {
-             background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            background-color: #3EBDB5;
+            transform: translateY(-2px);
         }
 
+        /* Article Cards */
+        .article-card {
+            background-color: var(--bg-light);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+        body.dark .article-card {
+            background-color: var(--bg-dark);
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-light);
+        }
+        .article-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 22px;
+        }
+        .article-card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            margin-top: 10px;
+            border-bottom: 2px dotted var(--accent-color);
+        }
+        .article-card a:hover {
+            border-bottom-style: solid;
+        }
+
+        /* Modals */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(45, 36, 36, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--card-bg-light);
+            margin: auto;
+            padding: 30px;
+            border: none;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+        }
+        body.dark .modal-content {
+            background-color: var(--card-bg-dark);
+        }
+        .close-button {
+            color: var(--text-color-light);
+            font-size: 32px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        #modalOkButton, #articleModalOkButton {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 20px;
+            border: none;
+        }
+
+        /* Dark Mode Toggle */
+        .toggle-dark {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            border-radius: 34px;
+            background-color: var(--border-color-light);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            vertical-align: middle;
+            margin-left: 20px;
+            border: 2px solid transparent;
+        }
+        body.dark .toggle-dark {
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
+        }
+
+        .toggle-dark input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>');
+            background-size: 14px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        body.dark .toggle-dark input:checked + .toggle-thumb {
+            left: 28px;
+            background-color: var(--accent-color);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>');
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            padding: 25px;
+            text-align: center;
+            background-color: transparent;
+            color: var(--text-color-light);
+            font-size: 14px;
+            margin-top: auto;
+            border-top: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px 20px;
+                text-align: center;
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+            header .logo-container { margin-bottom: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; width: 100%; }
+            nav a { margin: 5px; font-size: 14px; }
+            main { width: 95%; padding: 20px; margin: 20px auto; }
+            h2.section-heading { font-size: 26px; }
+        }
+
+        /* Style Override for Generated Content (Markdown) */
+        #personalizedContentText h3 { color: var(--accent-color); }
+        #personalizedContentText strong { color: var(--primary-color); }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo-container">
-        <!-- Logo: Placeholder JPEG for a paw print, updated to Lavender Dream color -->
         <img src="logo.jpg" alt="Pet'emote Logo" class="logo" />
         <h1 class="site-title">Pet'emote</h1>
     </div>
     <nav>
         <a href="#" id="link-analyzer" class="active-nav-link">Analyzer</a>
         <a href="#" id="link-articles">Articles</a>
-        <a href="#" id="link-personalized-content">Personalized Content</a>
-        <a href="#" id="link-chatbot">Chatbot</a>
+        <a href="#" id="link-personalized-content">Advice</a>
+        <a href="#" id="link-chatbot">Chat</a>
         <a href="#" id="link-profile">Profile</a>
         <label class="toggle-dark" for="darkToggle" aria-label="Toggle dark mode">
             <input type="checkbox" id="darkToggle" />
@@ -854,146 +594,131 @@
 </header>
 
 <main>
-    <!-- Analyzer Section -->
     <section id="analyzer" class="active">
-        <h2 class="section-heading">Pet Emotion Analyzer</h2>
+        <h2 class="section-heading">Pet Emotion Analyzer 📸</h2>
         <div class="analyzer-content">
-            <p class="text-gray-600 mb-6">Upload an image of your dog or cat to understand their emotions!</p>
+            <p style="text-align: center;">Upload a photo of your furry friend to find out what they are feeling!</p>
 
             <div class="file-input-wrapper">
-                <input type="file" id="imageUpload" accept="image/*" class="file-input">
+                <input type="file" id="imageUpload" accept="image/*" style="position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
                 <label for="imageUpload" class="file-input-label">
-                    Select Pet Image
+                    Tap to Select Image
                 </label>
             </div>
 
             <img id="imagePreview" src="#" alt="Image Preview">
 
-            <!-- Analyze Button: Updated to use CSS variables for background colors -->
-            <button id="analyzeButton" class="bg-[var(--primary-color)] text-white py-3 px-6 rounded-lg font-bold shadow-md hover:bg-[var(--primary-hover)] transition-colors duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50">
+            <button id="analyzeButton" style="background-color: var(--primary-color); color: white; padding: 16px 30px; width: 100%; border: none; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);">
                 Analyze Emotion
             </button>
 
             <div id="loadingSpinner" class="loading-spinner"></div>
 
-            <!-- Result Display: Removed conflicting Tailwind background and border classes -->
-            <div id="resultDisplay" class="p-6 rounded-lg text-left shadow-inner">
-                <h2 class="text-xl font-semibold text-blue-800 mb-2">Emotion Analysis:</h2>
-                <p id="emotionText" class="text-gray-700 italic">Upload an image and click 'Analyze Emotion' to see results.</p>
+            <div id="resultDisplay">
+                <h3 style="margin-top:0; color:var(--accent-color);">Emotion Result:</h3>
+                <p id="emotionText" style="font-style: italic;">Waiting for a cute photo...</p>
             </div>
         </div>
     </section>
 
-    <!-- Expert Articles Section -->
     <section id="articles">
-        <h2 class="section-heading">Expert Articles</h2>
-        <p>Dive deep into our curated collection of articles written by pet behaviorists, veterinarians, and experienced trainers.</p>
+        <h2 class="section-heading">Expert Articles 📚</h2>
+        <p style="text-align: center;">Curated wisdom from behaviorists and vets.</p>
         
         <div id="articlesContainer">
-            <!-- Article summaries will be dynamically loaded here -->
-        </div>
-
-        <p>Explore these and many more articles to become a more informed and confident pet parent!</p>
+            </div>
     </section>
 
-    <!-- Personalized Content Section -->
     <section id="personalized-content">
-        <h2 class="section-heading">Personalized Content for Your Pet</h2>
-        <p class="text-gray-600 mb-6">Enter your pet's details to get tailored recommendations and insights.</p>
+        <h2 class="section-heading">Tailored Advice 🍖</h2>
+        <p style="text-align: center; margin-bottom: 30px;">Tell us about your pet for a custom care plan.</p>
 
-        <!-- Personalized Content Input/Generate Section -->
-        <div class="bg-blue-50 p-6 rounded-lg text-left shadow-inner border border-blue-200 mb-6">
-            <div class="mb-4">
-                <label for="petName" class="block text-gray-700 text-sm font-bold mb-2">Pet's Name:</label>
-                <input type="text" id="petName" class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="e.g., Buddy">
+        <div style="background-color: var(--bg-light); padding: 30px; border-radius: 25px; border: 2px dashed var(--border-color-light);">
+            <div style="margin-bottom: 20px;">
+                <label for="petName" style="font-weight: 700; display: block; margin-bottom: 8px;">Pet's Name</label>
+                <input type="text" id="petName" placeholder="e.g., Buddy">
             </div>
-            <div class="mb-4">
-                <label for="petBreed" class="block text-gray-700 text-sm font-bold mb-2">Pet's Breed (or type):</label>
-                <input type="text" id="petBreed" class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="e.g., Golden Retriever, Siamese">
+            <div style="margin-bottom: 20px;">
+                <label for="petBreed" style="font-weight: 700; display: block; margin-bottom: 8px;">Breed / Type</label>
+                <input type="text" id="petBreed" placeholder="e.g., Golden Retriever">
             </div>
-            <div class="mb-4">
-                <label for="petAge" class="block text-gray-700 text-sm font-bold mb-2">Pet's Age (in years):</label>
-                <input type="number" id="petAge" class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="e.g., 3">
+            <div style="margin-bottom: 20px;">
+                <label for="petAge" style="font-weight: 700; display: block; margin-bottom: 8px;">Age (years)</label>
+                <input type="number" id="petAge" placeholder="e.g., 3">
             </div>
-            <div class="mb-6">
-                <label for="petWeight" class="block text-gray-700 text-sm font-bold mb-2">Pet's Weight (in kg/lbs):</label>
-                <input type="text" id="petWeight" class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline rounded-md" placeholder="e.g., 25kg, 55lbs">
+            <div style="margin-bottom: 30px;">
+                <label for="petWeight" style="font-weight: 700; display: block; margin-bottom: 8px;">Weight</label>
+                <input type="text" id="petWeight" placeholder="e.g., 25kg">
             </div>
-            <!-- Generate Content Button: Updated to use CSS variables for background colors -->
-            <button id="generateContentButton" class="bg-[var(--primary-color)] text-white py-3 px-6 rounded-lg font-bold shadow-md hover:bg-[var(--primary-hover)] transition-colors duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50 w-full">
-                Generate Personalized Advice
+            
+            <button id="generateContentButton" style="background-color: var(--accent-color); color: white; padding: 16px 30px; width: 100%; border: none; box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);">
+                Generate Advice
             </button>
-            <div id="personalizedLoadingSpinner" class="loading-spinner mt-4"></div>
+            <div id="personalizedLoadingSpinner" class="loading-spinner"></div>
         </div>
 
-        <!-- Personalized Result Display: Removed conflicting Tailwind background and border classes -->
-        <div id="personalizedResultDisplay" class="p-6 rounded-lg text-left shadow-inner">
-            <h3 class="text-xl font-semibold text-blue-800 mb-2">Your Personalized Pet Advice:</h3>
-            <div id="personalizedContentText" class="leading-relaxed">
-                <p>Enter your pet's details above and click 'Generate Personalized Advice' to see customized recommendations appear here.</p>
+        <div id="personalizedResultDisplay">
+            <h3 style="margin-top:0; color:var(--primary-color);">Your Care Plan:</h3>
+            <div id="personalizedContentText">
+                <p>Fill in the details above to get started!</p>
             </div>
         </div>
     </section>
 
-    <!-- Chatbot Section -->
     <section id="chatbot">
-        <h2 class="section-heading">Pet'emote Chatbot</h2>
+        <h2 class="section-heading">Chat with Pet'emote 💬</h2>
         <div class="chatbot-container">
             <div id="chat-window" class="chat-window">
-                <!-- Chat messages will appear here -->
-                <div class="chat-message bot">Hello! How can I help you with your pet today?</div>
+                <div class="chat-message bot">Hello! I'm your AI pet assistant. How can I help? 🐾</div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Ask about your pet's health, behavior, etc.">
+                <input type="text" id="chat-input" placeholder="Ask about health, training...">
                 <button id="send-chat-button">Send</button>
             </div>
         </div>
     </section>
 
-    <!-- Profile Section -->
     <section id="profile">
-        <h2 class="section-heading">Your Pet'emote Profile</h2>
+        <h2 class="section-heading">Your Profile 👤</h2>
         <div class="profile-info">
-            <p><strong>User ID:</strong> <span id="profileUid">Not logged in</span></p>
-            <p><strong>Email:</strong> <span id="profileEmail">Not logged in</span></p>
-            <p><strong>Display Name:</strong> <span id="profileDisplayName">Not logged in</span></p>
-            <p><strong>Provider:</strong> <span id="profileProvider">N/A</span></p>
+            <img src="https://img.icons8.com/color/96/dog-house.png" style="width: 80px; margin-bottom: 15px;" alt="Profile Icon">
+            <p><strong>User ID:</strong> <br><span id="profileUid">Not logged in</span></p>
+            <p><strong>Email:</strong> <br><span id="profileEmail">Not logged in</span></p>
+            <p><strong>Display Name:</strong> <br><span id="profileDisplayName">Not logged in</span></p>
+            <p><strong>Provider:</strong> <br><span id="profileProvider">N/A</span></p>
         </div>
         <button id="logoutButton" class="logout-button">Logout</button>
     </section>
 
 </main>
 
-<!-- Custom Modals -->
-<!-- Generic Message Modal -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
-        <p id="modalMessage" class="text-lg text-gray-800"></p>
-        <button id="modalOkButton" class="mt-4 bg-blue-500 text-white py-2 px-5 rounded-md hover:bg-blue-600 transition-colors duration-300">OK</button>
+        <h3 style="color:var(--primary-color); margin-top: 0;">Woof! Notice</h3>
+        <p id="modalMessage"></p>
+        <button id="modalOkButton">Got it!</button>
     </div>
 </div>
 
-<!-- Article Content Modal -->
 <div id="articleModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" id="closeArticleModal">&times;</span>
-        <h3 id="articleModalTitle"></h3>
-        <div id="articleModalContent" class="text-gray-700"></div>
-        <button id="articleModalOkButton" class="mt-4 bg-blue-500 text-white py-2 px-5 rounded-md hover:bg-blue-600 transition-colors duration-300">Close</button>
+    <div class="modal-content" style="text-align: left; max-height: 80vh; overflow-y: auto; max-width: 700px;">
+        <span class="close-button" id="closeArticleModal" style="top: 10px; right: 15px;">&times;</span>
+        <h3 id="articleModalTitle" style="color:var(--primary-color); margin-bottom: 20px; font-size: 24px;"></h3>
+        <div id="articleModalContent" style="font-size: 16px; line-height: 1.8;"></div>
+        <div style="text-align: center;">
+            <button id="articleModalOkButton">Close Article</button>
+        </div>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2025 Pet'emote. All rights reserved.</p>
+    <p>&copy; 2025 Pet'emote. Made with ❤️ for pets.</p>
 </footer>
 
-<!-- Firebase SDKs - v8.10.0 -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
-<!-- Add Showdown.js CDN for Markdown to HTML conversion -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
 
 <script>
@@ -1010,7 +735,6 @@
     };
     const GEMINI_API_KEY = "AIzaSyB9RBN6azjBtz9O4dwNTSTUD_rv1oPGssI";
 
-
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
@@ -1019,21 +743,19 @@
     // --- Global State ---
     let isApiBusy = false;
 
-    // --- UI Elements for Analyzer Section ---
+    // --- UI Elements ---
     const imageUpload = document.getElementById('imageUpload');
     const imagePreview = document.getElementById('imagePreview');
     const analyzeButton = document.getElementById('analyzeButton');
     const loadingSpinner = document.getElementById('loadingSpinner');
     const emotionText = document.getElementById('emotionText');
 
-    // --- UI Elements for Profile Section ---
     const profileUid = document.getElementById('profileUid');
     const profileEmail = document.getElementById('profileEmail');
     const profileDisplayName = document.getElementById('profileDisplayName');
     const profileProvider = document.getElementById('profileProvider');
     const logoutButton = document.getElementById('logoutButton');
 
-    // --- UI Elements for Personalized Content Section ---
     const petNameInput = document.getElementById('petName');
     const petBreedInput = document.getElementById('petBreed');
     const petAgeInput = document.getElementById('petAge');
@@ -1042,84 +764,55 @@
     const personalizedLoadingSpinner = document.getElementById('personalizedLoadingSpinner');
     const personalizedContentText = document.getElementById('personalizedContentText');
 
-    // --- UI Elements for Chatbot Section ---
     const chatWindow = document.getElementById('chat-window');
     const chatInput = document.getElementById('chat-input');
     const sendChatButton = document.getElementById('send-chat-button');
 
-    // --- Modal Elements (Global scope for accessibility) ---
     const myModal = document.getElementById('myModal');
     const modalMessage = document.getElementById('modalMessage');
-    const closeButton = document.querySelector('#myModal .close-button'); // Specific to myModal
+    const closeButton = document.querySelector('#myModal .close-button'); 
     const modalOkButton = document.getElementById('modalOkButton');
 
-    // Article Modal Elements
     const articleModal = document.getElementById('articleModal');
     const articleModalTitle = document.getElementById('articleModalTitle');
     const articleModalContent = document.getElementById('articleModalContent');
     const closeArticleModalButton = document.getElementById('closeArticleModal');
     const articleModalOkButton = document.getElementById('articleModalOkButton');
 
-
-    // Function to show the generic custom modal
+    // Modal Logic
     function showModal(message) {
-        if (modalMessage) {
-            modalMessage.textContent = message;
-        }
-        if (myModal) {
-            myModal.style.display = 'flex'; // Use flex to center
-        }
+        if (modalMessage) modalMessage.textContent = message;
+        if (myModal) myModal.style.display = 'flex';
     }
 
-    // Function to hide the generic custom modal
     function hideModal() {
-        if (myModal) {
-            myModal.style.display = 'none';
-        }
+        if (myModal) myModal.style.display = 'none';
     }
 
-    // Function to show the article modal
     function showArticleModal(title, content) {
         if (articleModalTitle && articleModalContent) {
             articleModalTitle.textContent = title;
-            articleModalContent.innerHTML = content; // Use innerHTML for rich text content
+            articleModalContent.innerHTML = content; 
         }
-        if (articleModal) {
-            articleModal.style.display = 'flex';
-        }
+        if (articleModal) articleModal.style.display = 'flex';
     }
 
-    // Function to hide the article modal
     function hideArticleModal() {
-        if (articleModal) {
-            articleModal.style.display = 'none';
-        }
+        if (articleModal) articleModal.style.display = 'none';
     }
 
-    // Attach event listeners for generic modal
     if (closeButton) closeButton.onclick = hideModal;
     if (modalOkButton) modalOkButton.onclick = hideModal;
 
-    // Close generic modal if clicked outside
     window.addEventListener('click', function(event) {
-        if (event.target == myModal) {
-            hideModal();
-        }
+        if (event.target == myModal) hideModal();
+        if (event.target == articleModal) hideArticleModal();
     });
 
-    // Attach event listeners for article modal
     if (closeArticleModalButton) closeArticleModalButton.onclick = hideArticleModal;
     if (articleModalOkButton) articleModalOkButton.onclick = hideArticleModal;
 
-    // Close article modal if clicked outside
-    window.addEventListener('click', function(event) {
-        if (event.target == articleModal) {
-            hideArticleModal();
-        }
-    });
-
-
-    // --- Section Navigation Logic ---
+    // --- Section Navigation ---
     const sections = {
         'analyzer': document.getElementById('analyzer'),
         'articles': document.getElementById('articles'),
@@ -1136,27 +829,22 @@
         'link-profile': document.getElementById('link-profile')
     };
 
-    // Consolidated list of all navigation link elements for iteration
     const allNavLinks = Object.values(navLinks);
 
-
     function showSection(sectionIdToShow) {
-        // Hide all sections
         for (const id in sections) {
             if (sections.hasOwnProperty(id) && sections[id]) {
                 sections[id].style.display = 'none';
                 sections[id].classList.remove('active');
             }
         }
-        // Remove active class from all nav links
         allNavLinks.forEach(link => {
             if (link) link.classList.remove('active-nav-link');
         });
 
-        // Show the requested section and set active nav link
         if (sections[sectionIdToShow]) {
             sections[sectionIdToShow].style.display = 'block';
-            void sections[sectionIdToShow].offsetWidth; // Trigger reflow for animation
+            void sections[sectionIdToShow].offsetWidth; 
             sections[sectionIdToShow].classList.add('active');
         }
         if (navLinks[`link-${sectionIdToShow}`]) {
@@ -1164,22 +852,20 @@
         }
     }
 
-    // Attach navigation event listeners
     if (navLinks['link-analyzer']) navLinks['link-analyzer'].addEventListener('click', (e) => { e.preventDefault(); showSection('analyzer'); });
     if (navLinks['link-articles']) navLinks['link-articles'].addEventListener('click', (e) => { e.preventDefault(); showSection('articles'); });
     if (navLinks['link-personalized-content']) navLinks['link-personalized-content'].addEventListener('click', (e) => { e.preventDefault(); showSection('personalized-content'); });
     if (navLinks['link-chatbot']) navLinks['link-chatbot'].addEventListener('click', (e) => { e.preventDefault(); showSection('chatbot'); });
     if (navLinks['link-profile']) navLinks['link-profile'].addEventListener('click', (e) => { e.preventDefault(); showSection('profile'); });
 
-
-    // --- Dark Mode Toggle Logic ---
+    // --- Dark Mode ---
     const darkToggle = document.getElementById('darkToggle');
 
     function applyDarkMode(isDark) {
         if (isDark) {
             document.body.classList.add('dark');
             if (darkToggle) darkToggle.checked = true;
-            localStorage.setItem('petEmoteDarkMode', 'enabled'); // Unique key for this app
+            localStorage.setItem('petEmoteDarkMode', 'enabled'); 
         } else {
             document.body.classList.remove('dark');
             if (darkToggle) darkToggle.checked = false;
@@ -1187,7 +873,6 @@
         }
     }
 
-    // Initialize toggle state from localStorage on page load
     applyDarkMode(localStorage.getItem('petEmoteDarkMode') === 'enabled');
 
     if (darkToggle) {
@@ -1196,60 +881,40 @@
         });
     }
 
-    // --- Firebase Authentication State Listener ---
-    // This will run when the auth state changes (e.g., user logs in/out)
+    // --- Auth Logic ---
     auth.onAuthStateChanged(user => {
         if (user) {
-            // User is signed in.
             profileUid.textContent = user.uid;
             profileEmail.textContent = user.email || 'N/A';
             profileDisplayName.textContent = user.displayName || 'Guest User';
             profileProvider.textContent = user.providerData[0] ? user.providerData[0].providerId : 'N/A';
-
-            // Ensure user profile exists in RTDB or update it
-            saveUserProfile(user.uid, user.email, user.displayName, user.providerData[0] ? user.providerData[0].providerId : 'unknown')
-                .then(() => console.log("User profile ensured in RTDB."))
-                .catch(error => console.error("Error ensuring user profile in RTDB:", error));
-
-            // Automatically navigate to the Analyzer section upon successful login/load
+            saveUserProfile(user.uid, user.email, user.displayName, user.providerData[0] ? user.providerData[0].providerId : 'unknown');
             showSection('analyzer');
-
         } else {
-            // User is signed out.
             profileUid.textContent = 'Not logged in';
             profileEmail.textContent = 'Not logged in';
             profileDisplayName.textContent = 'Not logged in';
             profileProvider.textContent = 'N/A';
-            // Removed automatic redirect/modal here to prevent immediate logout issue
-            // The app will simply show the "Not logged in" state in the profile section
-            // and the user can manually navigate to the login page via the "Logout" button or header links.
         }
     });
 
-    // --- Logout Functionality ---
     if (logoutButton) {
         logoutButton.addEventListener('click', async () => {
             try {
                 await auth.signOut();
                 showModal("You have been logged out successfully.");
-                // Redirect to the landing page after logout
                 window.location.replace('./index.html');
             } catch (error) {
                 console.error("Error logging out:", error);
-                showModal("Failed to log out. Please try again.");
+                showModal("Failed to log out.");
             }
         });
     }
 
-    // Helper to store user data in Realtime Database
     async function saveUserProfile(uid, email, displayName, providerId) {
-        if (!database) {
-            console.error("Firebase Realtime Database not initialized.");
-            return;
-        }
+        if (!database) return;
         try {
             const userRef = database.ref(`users/${uid}`);
-            // Check if user data already exists to avoid overwriting display name for existing users
             const snapshot = await userRef.once('value');
             if (!snapshot.exists()) {
                  await userRef.set({
@@ -1260,49 +925,35 @@
                     createdAt: firebase.database.ServerValue.TIMESTAMP,
                     lastSignInTime: firebase.database.ServerValue.TIMESTAMP
                 });
-                console.log("New user profile created in Realtime Database:", uid);
             } else {
-                // Update only lastSignInTime for existing users
                 await userRef.update({
                     lastSignInTime: firebase.database.ServerValue.TIMESTAMP
                 });
-                console.log("Existing user profile updated in Realtime Database:", uid);
             }
         } catch (error) {
-            console.error("Error saving user profile to Realtime Database:", error);
-            showModal("Error saving user profile data.");
+            console.error("Error saving user profile:", error);
         }
     }
 
-    // --- API Call Management ---
-
-    /**
-     * Sets the global API busy state and disables/enables relevant buttons.
-     * @param {boolean} busy - True to set to busy, false to release.
-     */
+    // --- API Helpers ---
     function setApiBusy(busy) {
         isApiBusy = busy;
-        // The analyze button has its own logic based on image upload, so we manage it separately in its own function.
-        // We only disable it here if we are setting the busy state.
         if (busy) {
             analyzeButton.disabled = true;
+            analyzeButton.style.opacity = "0.7";
+            analyzeButton.style.cursor = "not-allowed";
         } else {
-            // Re-enable only if an image is actually uploaded
             analyzeButton.disabled = !uploadedBase64Image;
+            analyzeButton.style.opacity = "1";
+            analyzeButton.style.cursor = "pointer";
         }
         generateContentButton.disabled = busy;
+        generateContentButton.style.opacity = busy ? "0.7" : "1";
         sendChatButton.disabled = busy;
     }
 
-    /**
-     * Fetches data from the Gemini API with exponential backoff for rate limiting.
-     * @param {string} apiUrl The full API URL.
-     * @param {object} payload The request payload.
-     * @param {number} maxRetries The maximum number of retries.
-     * @returns {Promise<Response>} The fetch response object.
-     */
     async function fetchWithExponentialBackoff(apiUrl, payload, maxRetries = 5) {
-        let delay = 1500; // Start with 1.5 second delay
+        let delay = 1500;
         for (let i = 0; i < maxRetries; i++) {
             const response = await fetch(apiUrl, {
                 method: 'POST',
@@ -1311,126 +962,75 @@
             });
 
             if (response.status === 429) {
-                if (i === maxRetries - 1) {
-                    // If this was the last retry, throw an error
-                    throw new Error("API quota exceeded. Please try again later.");
-                }
-                console.warn(`API rate limit hit. Retrying in ${delay / 1000}s... (Attempt ${i + 1}/${maxRetries})`);
+                if (i === maxRetries - 1) throw new Error("API quota exceeded.");
                 await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2; // Double the delay for the next retry
+                delay *= 2;
             } else {
-                // If the response is not 429, return it for normal processing
                 return response;
             }
         }
     }
 
+    // --- Analyzer Logic ---
+    let uploadedBase64Image = null;
+    let uploadedImageMimeType = null;
 
-    // --- Pet Emotion Analyzer Logic ---
-    let uploadedBase64Image = null; // Store the base64 image
-    let uploadedImageMimeType = null; // Store the image MIME type
-
-    // Handle image file selection
     if (imageUpload) {
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 if (!file.type.startsWith('image/')) {
-                    showModal('Please upload a valid image file (e.g., JPEG, PNG).');
-                    imageUpload.value = '';
-                    imagePreview.style.display = 'none';
-                    uploadedBase64Image = null;
-                    uploadedImageMimeType = null;
-                    emotionText.textContent = 'Upload an image and click \'Analyze Emotion\' to see results.';
-                    analyzeButton.disabled = true; // Disable button if no valid image
+                    showModal('Please upload a valid image file.');
                     return;
                 }
-
                 uploadedImageMimeType = file.type;
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     imagePreview.src = e.target.result;
                     imagePreview.style.display = 'block';
                     uploadedBase64Image = e.target.result.split(',')[1];
-                    emotionText.textContent = 'Image selected. Click "Analyze Emotion" to analyze.';
-                    analyzeButton.disabled = false; // Enable button if image is selected
+                    emotionText.textContent = 'Image ready. Tap "Analyze Emotion".';
+                    analyzeButton.disabled = false;
                 };
                 reader.readAsDataURL(file);
-            } else {
-                imagePreview.src = '#';
-                imagePreview.style.display = 'none';
-                uploadedBase64Image = null;
-                uploadedImageMimeType = null;
-                emotionText.textContent = 'Upload an image and click \'Analyze Emotion\' to see results.';
-                analyzeButton.disabled = true; // Disable button if no image
             }
         });
     }
 
-    // Handle analyze button click
     if (analyzeButton) {
         analyzeButton.addEventListener('click', async function() {
-            if (!uploadedBase64Image || !uploadedImageMimeType) {
+            if (!uploadedBase64Image) {
                 showModal('Please select an image first.');
                 return;
             }
-            if (isApiBusy) {
-                showModal("Please wait for the current operation to complete before starting a new one.");
-                return;
-            }
+            if (isApiBusy) return;
 
             loadingSpinner.style.display = 'block';
-            emotionText.textContent = 'Analyzing emotion... Please wait.';
+            emotionText.textContent = 'Analyzing...';
             setApiBusy(true);
 
             try {
-                const prompt = "Analyze the emotion and current situation of the dog or cat in this image. Is it hungry, playful, sleepy, sad, happy, curious, or showing any other distinct emotion? Describe its current situation in a concise manner. Focus on what the pet might be feeling or doing.";
-
+                const prompt = "Analyze the emotion of the dog or cat in this image. Is it happy, sad, playful? Keep it short and fun.";
                 const payload = {
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
-                                { text: prompt },
-                                {
-                                    inlineData: {
-                                        mimeType: uploadedImageMimeType,
-                                        data: uploadedBase64Image
-                                    }
-                                }
-                            ]
-                        }
-                    ],
+                    contents: [{
+                        role: "user",
+                        parts: [{ text: prompt }, { inlineData: { mimeType: uploadedImageMimeType, data: uploadedBase64Image } }]
+                    }],
                 };
                 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
                 const response = await fetchWithExponentialBackoff(apiUrl, payload);
 
-                if (!response || !response.ok) {
-                    const errorText = response ? await response.text() : "No response from server";
-                    console.error('API Error Response Text:', errorText);
-                    showModal(`API Error: ${response ? response.status : 'N/A'} - ${errorText.substring(0, 150)}...`);
-                    emotionText.textContent = 'Analysis failed due to API error.';
-                    return;
-                }
-
+                if (!response || !response.ok) throw new Error("API Error");
                 const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    emotionText.textContent = text;
+                
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    emotionText.textContent = result.candidates[0].content.parts[0].text;
                 } else {
-                    emotionText.textContent = 'Could not get a valid response from the AI. The response structure was unexpected or empty.';
-                    console.error('Unexpected API response structure or empty content:', result);
-                    showModal('Could not get a valid response from the AI. The response structure was unexpected. See console for details.');
+                    emotionText.textContent = 'Could not analyze. Try another photo.';
                 }
-
             } catch (error) {
-                console.error('Error analyzing image:', error);
-                showModal(error.message || 'A network error occurred. Please check your internet connection or console for more details.');
-                emotionText.textContent = 'Analysis failed. Please try again.';
+                emotionText.textContent = 'Error during analysis.';
             } finally {
                 loadingSpinner.style.display = 'none';
                 setApiBusy(false);
@@ -1439,7 +1039,6 @@
     }
 
     // --- Personalized Content Logic ---
-    // Handle Generate Personalized Content button click
     if (generateContentButton) {
         generateContentButton.addEventListener('click', async function() {
             const petName = petNameInput.value.trim();
@@ -1448,74 +1047,32 @@
             const petWeight = petWeightInput.value.trim();
 
             if (!petName || !petBreed || !petAge || !petWeight) {
-                showModal('Please fill in all pet details to generate personalized content.');
+                showModal('Please fill in all details.');
                 return;
             }
-            if (isApiBusy) {
-                showModal("Please wait for the current operation to complete before starting a new one.");
-                return;
-            }
+            if (isApiBusy) return;
 
             personalizedLoadingSpinner.style.display = 'block';
-            personalizedContentText.innerHTML = '<p>Generating personalized advice... This might take a moment.</p>';
+            personalizedContentText.innerHTML = '<p>Cooking up a plan...</p>';
             setApiBusy(true);
 
             try {
-                const prompt = `Generate personalized content for a pet with the following details:
-                Name: ${petName}
-                Breed/Type: ${petBreed}
-                Age: ${petAge} years
-                Weight: ${petWeight}
-
-                Please provide advice for the following categories:
-                1.  **Customized Diet Plan:** Recommendations based on its breed, age, weight, and activity level.
-                2.  **Behavioral Insights:** Articles and tips relevant to its specific behavioral patterns.
-                3.  **Health Reminders:** Personalized alerts/advice for vaccinations, vet check-ups, and medication.
-                4.  **Training Roadmaps:** Step-by-step training plans adapted to its learning style.
-                5.  **Activity Suggestions:** Ideas for exercises and play tailored to its energy and breed.
-
-                Structure the response clearly with headings for each category, using Markdown for formatting (e.g., **bold**, *italic*, lists, headings like ## and ###).`;
-
-                const payload = {
-                    contents: [{
-                        role: "user",
-                        parts: [{ text: prompt }]
-                    }],
-                };
-
+                const prompt = `Generate a pet care plan for: Name: ${petName}, Breed: ${petBreed}, Age: ${petAge}, Weight: ${petWeight}. Include Diet, Behavior, and Activities. Use Markdown.`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
                 const response = await fetchWithExponentialBackoff(apiUrl, payload);
 
-                if (!response || !response.ok) {
-                    const errorText = response ? await response.text() : "No response from server";
-                    console.error('API Error Response Text:', errorText);
-                    showModal(`API Error: ${response ? response.status : 'N/A'} - ${errorText.substring(0, 150)}...`);
-                    personalizedContentText.innerHTML = '<p class="text-red-600">Analysis failed due to API error.</p>';
-                    return;
-                }
-
+                if (!response || !response.ok) throw new Error("API Error");
                 const result = await response.json();
 
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    
-                    const text = result.candidates[0].content.parts[0].text;
-                    
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
                     const converter = new showdown.Converter();
-                    const htmlContent = converter.makeHtml(text);
-                    personalizedContentText.innerHTML = htmlContent;
-
+                    personalizedContentText.innerHTML = converter.makeHtml(result.candidates[0].content.parts[0].text);
                 } else {
-                    personalizedContentText.innerHTML = '<p class="text-red-600">Could not get personalized advice. The AI response was empty or unexpected.</p>';
-                    console.error('Unexpected API response structure or empty content:', result);
-                    showModal('Could not get a valid response from the AI. The response structure was unexpected. See console for details.');
+                    personalizedContentText.innerHTML = '<p>Failed to generate.</p>';
                 }
-
             } catch (error) {
-                console.error('Error generating personalized content:', error);
-                showModal(error.message || 'A network error occurred. Please check your internet connection or console for more details.');
-                personalizedContentText.innerHTML = '<p class="text-red-600">Failed to generate personalized advice. Please try again.</p>';
+                personalizedContentText.innerHTML = '<p>Error generating advice.</p>';
             } finally {
                 personalizedLoadingSpinner.style.display = 'none';
                 setApiBusy(false);
@@ -1524,346 +1081,86 @@
     }
 
     // --- Chatbot Logic ---
-    let chatHistory = []; // To maintain conversation context
+    let chatHistory = []; 
 
     async function handleChatSend() {
         const userMessage = chatInput.value.trim();
         if (!userMessage) return;
-        if (isApiBusy) {
-            // Don't show a modal for chat, just ignore the send attempt silently.
-            return;
-        }
+        if (isApiBusy) return;
 
         appendMessage(userMessage, 'user');
         chatInput.value = '';
         setApiBusy(true);
 
-        const thinkingMessageElement = appendMessage('...', 'bot thinking');
+        const thinkingMsg = appendMessage('...', 'bot');
 
         try {
             chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
-
-            const payload = {
-                contents: chatHistory,
-            };
-
+            const payload = { contents: chatHistory };
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
             const response = await fetchWithExponentialBackoff(apiUrl, payload);
-
-            if (!response || !response.ok) {
-                const errorText = response ? await response.text() : "No response from server";
-                throw new Error(`API Error: ${response ? response.status : 'N/A'} - ${errorText}`);
-            }
-
+            
+            if (!response || !response.ok) throw new Error("API Error");
             const result = await response.json();
-            let botResponse = 'Sorry, I could not get a valid response.';
-
-            if (result.candidates && result.candidates.length > 0 &&
-                result.candidates[0].content && result.candidates[0].content.parts &&
-                result.candidates[0].content.parts.length > 0) {
+            
+            let botResponse = 'Sorry, I am confused.';
+            if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
                 botResponse = result.candidates[0].content.parts[0].text;
-            } else {
-                 console.error('Unexpected API response structure:', result);
             }
 
-            thinkingMessageElement.textContent = botResponse;
-            thinkingMessageElement.classList.remove('thinking');
-
+            thinkingMsg.textContent = botResponse;
             chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
 
         } catch (error) {
-            console.error('Error with chatbot:', error);
-            thinkingMessageElement.textContent = error.message || 'Sorry, something went wrong. Please try again.';
-            thinkingMessageElement.classList.remove('thinking');
+            thinkingMsg.textContent = 'My brain is offline right now. Try again later.';
         } finally {
             setApiBusy(false);
         }
     }
 
     function appendMessage(message, type) {
-        const messageElement = document.createElement('div');
-        messageElement.className = `chat-message ${type}`;
-        messageElement.textContent = message;
-        chatWindow.appendChild(messageElement);
+        const div = document.createElement('div');
+        div.className = `chat-message ${type}`;
+        div.textContent = message;
+        chatWindow.appendChild(div);
         chatWindow.scrollTop = chatWindow.scrollHeight;
-        return messageElement;
+        return div;
     }
 
-    if (sendChatButton) {
-        sendChatButton.addEventListener('click', handleChatSend);
-    }
-    if (chatInput) {
-        chatInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                handleChatSend();
-            }
-        });
-    }
+    if (sendChatButton) sendChatButton.addEventListener('click', handleChatSend);
+    if (chatInput) chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChatSend(); });
 
-    // --- Article Data and Rendering Logic ---
+    // --- Articles Data ---
     const articlesData = [
-        {
-            title: "Understanding Canine Body Language: Decoding Barks, Tail Wags, and Facial Expressions",
-            summary: "Decoding your dog's signals is key to a happy relationship. From subtle ear twitches to enthusiastic tail wags, learn what your canine companion is trying to tell you. This article covers common postures, facial expressions, and vocalizations that reveal your dog's mood, needs, and intentions.",
-            content: `
-                <p>Dogs communicate primarily through their body language. As pet parents, learning to interpret these subtle (and not-so-subtle) cues is crucial for building a strong bond, addressing their needs, and ensuring their well-being. This guide will help you understand the basics of canine communication.</p>
-                <h4>The Tail: More Than Just a Wag</h4>
-                <ul>
-                    <li><strong>High, Fast Wag:</strong> Often indicates excitement and happiness. A full-body wag that includes their hips usually means extreme joy.</li>
-                    <li><strong>Low, Slow Wag:</strong> Can suggest insecurity, apprehension, or submission.</li>
-                    <li><strong>Tail Tucked Between Legs:</strong> A clear sign of fear, anxiety, or extreme submission.</li>
-                    <li><strong>Stiff, High Wag:</strong> May indicate alertness, arousal, or potential aggression. This is not a friendly wag.</li>
-                    <li><strong>Tail at Natural Position with Gentle Wag:</strong> A relaxed, happy, and comfortable dog.</li>
-                </ul>
-                <h4>Facial Expressions: The Eyes, Ears, and Mouth</h4>
-                <ul>
-                    <li><strong>Soft, Relaxed Eyes:</strong> Often squinted or almond-shaped, indicating comfort and trust.</li>
-                    <li><strong>Hard Stare/Wide Eyes (Whale Eye):</strong> Direct, unblinking stare or showing the whites of their eyes can indicate tension, fear, or a challenge.</li>
-                    <li><strong>Ears Forward/Alert:</strong> Sign of interest or focus.</li>
-                    <li><strong>Ears Pinned Back:</b> Can mean fear, anxiety, or aggression, depending on other body cues.</li>
-                    <li><strong>Relaxed Mouth/Slightly Open:</strong> A happy, comfortable dog, possibly panting gently.</li>
-                    <li><strong>Licking Lips (without food present):</strong> A common stress signal, often seen when a dog is uncomfortable or anxious.</li>
-                    <li><strong>Yawning (without being tired):</strong> Another common stress signal, similar to lip-licking.</li>
-                    <li><strong>Exposed Teeth (Snarl):</strong> A warning sign of aggression.</li>
-                </ul>
-                <h4>Body Postures: The Whole Picture</h4>
-                <ul>
-                    <li><strong>Play Bow:</strong> Front end down, rear end up, tail wagging. An invitation to play.</li>
-                    <li><strong>Relaxed Stance:</strong> Even weight distribution, loose muscles, gentle tail wag. Indicates comfort.</li>
-                    <li><strong>Stiff, Frozen Stance:</strong> A warning that the dog is uncomfortable or about to react. Often precedes aggression.</li>
-                    <li><strong>Cowering/Lowered Body:</strong> Fear or submission.</li>
-                    <li><strong>Rolling Over (Exposing Belly):</strong> Can be an invitation for a belly rub (if relaxed) or a submissive gesture (if tense). Look for other cues.</li>
-                </ul>
-                <h4>Vocalizations: Beyond the Bark</h4>
-                <ul>
-                    <li><strong>Barks:</strong> Can vary widely in meaning depending on pitch, duration, and frequency. A sharp, high-pitched bark might be excitement, while a low, guttural bark could be a warning.</li>
-                    <li><strong>Growls:</strong> Almost always a warning. Respect a growl; it means the dog is uncomfortable and needs space.</li>
-                    <li><strong>Whines:</strong> Often indicate a need (food, attention, potty break) or anxiety/distress.</li>
-                    <li><strong>Howls:</strong> Can be a form of communication over long distances or a response to certain sounds.</li>
-                </ul>
-                <p>Remember, body language should always be interpreted in context. Observe your dog's entire body, the situation, and past behaviors to get the most accurate understanding of their emotions.</p>
-            `
-        },
-        {
-            title: "Feline Communication Masterclass: Interpreting Meows, Purrs, Ear Positions, and Tail Movements",
-            summary: "Cats communicate in mysterious ways, but with a little knowledge, you can become a feline whisperer! Discover the nuances of meows, purrs, hisses, and growls, as well as the secret language of their tails, ears, and eyes. Understanding these cues will help you respond to your cat's desires and discomforts.",
-            content: `
-                <p>Cats are often considered enigmatic, but they are constantly communicating with us through a rich array of vocalizations, facial expressions, and body postures. Understanding these subtle cues can deepen your bond and help you better cater to your cat's needs.</p>
-                <h4>The Tail: A Cat's Emotional Barometer</h4>
-                <ul>
-                    <li><strong>Tail Held High, Tip Curled:</strong> A confident, friendly, and happy cat. This is often an invitation for interaction.</li>
-                    <li><strong>Tail Wagging Slowly (like a snake):</strong> Usually indicates concentration or slight irritation, often seen just before a pounce during play or hunting.</li>
-                    <li><strong>Tail Thumping:</strong> Often a sign of irritation, frustration, or agitation. "I'm annoyed!"</li>
-                    <li><strong>Tail Tucked Low/Between Legs:</strong> Fear, insecurity, or submission.</li>
-                    <li><strong>Tail Puffed Up (Bottle Brush):</strong> Extreme fear or aggression, attempting to look larger to deter a threat.</li>
-                    <li><strong>Tail Wrapped Around You:</strong> A sign of affection and belonging.</li>
-                </ul>
-                <h4>Ears: Tiny Antennas of Emotion</h4>
-                <ul>
-                    <li><strong>Ears Forward/Alert:</strong> Engaged, interested, and listening.</li>
-                    <li><strong>Ears Swiveled Sideways/Flattened (Airplane Ears):</strong> Often a sign of irritation, fear, or readiness to defend. "I'm unhappy or worried."</li>
-                    <li><strong>Ears Pointing Sideways and Down:</strong> Indicates fear or aggression.</li>
-                    <li><strong>Ears Rapidly Flicking:</strong> A sign of anxiety or being overstimulated.</li>
-                </ul>
-                <h4>Eyes: Windows to the Feline Soul</h4>
-                <ul>
-                    <li><strong>Slow Blink:</strong> A cat's "I love you." If your cat slow-blinks at you, try slow-blinking back to reciprocate.</li>
-                    <li><strong>Dilated Pupils (Wide):</strong> Can indicate fear, excitement, playfulness, or aggression. Context is key.</li>
-                    <li><strong>Constricted Pupils (Slit):</strong> Often a sign of aggression or discomfort, especially in bright light.</li>
-                    <li><strong>Direct Stare:</strong> Can be challenging or a sign of intense focus. Averted gaze is generally more friendly.</li>
-                </ul>
-                <h4>Vocalizations: The Language of Meows</h4>
-                <ul>
-                    <li><strong>Short Meow:</strong> A common greeting. "Hello!"</li>
-                    <li><strong>Multiple Meows:</strong> Enthusiastic greeting, excitement. "Welcome home! I missed you!"</li>
-                    <li><strong>Long, Drawn-Out Meow:</strong> Demanding something, like food or attention. "I want food NOW!"</li>
-                    <li><strong>Low-Pitched Meow/Mutter:</strong> Complaint or dissatisfaction.</li>
-                    <li><strong>Purr:</strong> Usually contentment and relaxation, but can also be a self-soothing mechanism when stressed or injured.</li>
-                    <li><strong>Hiss/Growl/Spit:</strong> Clear warning signs of fear, anger, or aggression. "Stay away!"</li>
-                    <li><strong>Trill/Chirp:</strong> A soft, rolling vocalization, often used by mothers to call kittens or by cats to get your attention in a friendly way.</li>
-                </ul>
-                <h4>Body Postures: Reading the Whole Cat</h4>
-                <ul>
-                    <li><strong>Rubbing Against You (Bunting):</strong> Affectionate greeting, marking you with their scent.</li>
-                    <li><strong>Kneading (Making Biscuits):</strong> A sign of contentment and comfort, harking back to kittenhood nursing.</li>
-                    <li><strong>Arched Back, Hacked Hair:</strong> Defensive posture, trying to look larger and more intimidating.</li>
-                    <li><strong>Crouched Low (Wagging Tail or Still):</strong> Predatory behavior, ready to pounce.</li>
-                    <li><strong>Rolling on Back (Exposing Belly):</strong> If relaxed, it's a sign of trust and an invitation for a gentle rub (but often not a full belly rub!). If tense, it's a defensive posture.</li>
-                </ul>
-                <p>By paying attention to your cat's entire body, you can better understand their moods and needs, leading to a more harmonious household.</p>
-            `
-        },
-        {
-            title: "Optimal Nutrition for All Life Stages: Choosing the Right Diet for Puppies/Kittens, Adults, and Seniors",
-            summary: "A balanced diet is the cornerstone of a healthy life for your pet. This comprehensive guide explores nutritional requirements for puppies/kittens, adult, and senior pets. Learn how to choose the best food, understand ingredient labels, and manage portion sizes to keep your furry friend thriving.",
-            content: `
-                <p>Just like humans, pets have varying nutritional needs throughout their lives. Providing the right diet at each stage is crucial for their growth, energy, and overall health. This guide breaks down the dietary considerations for puppies/kittens, adult pets, and seniors.</p>
-                <h4>1. Puppies & Kittens (Growth Stage)</h4>
-                <p>The first year of a pet's life (or up to 18-24 months for large dog breeds) is a period of rapid growth and development. Their nutritional needs are intense.</p>
-                <ul>
-                    <li><strong>High Calories:</strong> They need more calories per pound of body weight than adults to fuel rapid growth.</li>
-                    <li><strong>High Protein:</strong> Essential for building muscle, tissues, and organs. Look for high-quality animal protein sources.</li>
-                    <li><strong>Balanced Calcium & Phosphorus:</strong> Crucial for bone development. Too much or too little, especially in large breed puppies, can lead to orthopedic problems.</li>
-                    <li><strong>DHA (Docosahexaenoic Acid):</strong> An omega-3 fatty acid important for brain and vision development.</li>
-                    <li><strong>Small, Frequent Meals:</strong> Puppies and kittens have small stomachs and high energy needs, so feed them 3-4 times a day.</li>
-                </ul>
-                <p><strong>Recommendation:</strong> Choose a reputable "puppy formula" or "kitten formula" specifically designed for growth, often labeled "for all life stages" or "for growth."</p>
-                <h4>2. Adult Pets (Maintenance Stage)</h4>
-                <p>Once your pet reaches maturity, their growth slows, and their energy needs stabilize. The goal is to maintain a healthy weight and provide balanced nutrition for ongoing health.</p>
-                <ul>
-                    <li><strong>Balanced Calories:</strong> Sufficient calories to maintain ideal body weight without causing obesity. This will vary greatly by breed, size, and activity level.</li>
-                    <li><strong>Moderate Protein:</strong> Still essential for muscle maintenance and repair.</li>
-                    <li><strong>Essential Fatty Acids:</strong> For healthy skin, coat, and overall cellular function (Omega-3 and Omega-6).</li>
-                    <li><strong>Vitamins & Minerals:</strong> To support all bodily functions and immune health.</li>
-                    <li><strong>Scheduled Meals:</strong> Most adult pets thrive on 1-2 meals per day. Portion control is critical to prevent weight gain.</li>
-                </ul>
-                <p><strong>Recommendation:</strong> Select an "adult formula" appropriate for your pet's size and activity level. If your pet has specific health concerns (e.g., allergies, sensitive stomach), consult your vet for specialized diets.</p>
-                <h4>3. Senior Pets (Aging Stage)</h4>
-                <p>As pets age (typically starting around 7 years for dogs, 10 for cats, but varies by breed), their metabolism slows, activity often decreases, and specific health issues may arise.</p>
-                <ul>
-                    <li><strong>Fewer Calories:</strong> To prevent weight gain due to decreased activity.</li>
-                    <li><strong>Higher Quality, Digestible Protein:</strong> To help maintain muscle mass, even if total protein intake is slightly lower.</li>
-                    <li><strong>Joint Support:</strong> Ingredients like glucosamine and chondroitin can support aging joints.</li>
-                    <li><strong>Antioxidants:</strong> To combat cellular aging and support the immune system.</li>
-                    <li><strong>Controlled Phosphorus:</strong> To support kidney health, a common concern in older pets, especially cats.</li>
-                    <li><strong>Fiber:</strong> To aid digestion and promote satiety.</li>
-                </ul>
-                <p><strong>Recommendation:</strong> Transition to a "senior formula" or "senior/healthy aging" diet. These are designed to support cognitive function, joint health, and organ function in aging pets. Regular veterinary check-ups are paramount for senior pets.</p>
-                <h4>Understanding Ingredient Labels</h4>
-                <p>Regardless of the life stage, always look for:</p>
-                <ul>
-                    <li><strong>Meat as the First Ingredient:</b> Indicates a good source of protein.</li>
-                    <li><strong>Whole Grains (if included):</strong> Such as brown rice, oats, barley, rather than corn or wheat fillers.</li>
-                    <li><strong>Limited Fillers, Artificial Colors, and Preservatives:</strong> These offer little to no nutritional value.</li>
-                </ul>
-                <p><strong>Always consult your veterinarian for personalized dietary advice</strong>, especially if your pet has any health conditions, allergies, or unique needs. They can help you select the best diet and portion sizes for your individual pet.</p>
-            `
-        },
-        {
-            title: "Effective Positive Reinforcement Training: Building Strong Bonds Through Reward-Based Techniques",
-            summary: "Build a strong, trusting bond with your pet through positive reinforcement. This method focuses on rewarding desired behaviors, making training a fun and positive experience. Explore techniques for teaching commands, addressing common behavioral issues, and fostering a well-behaved companion.",
-            content: `
-                <p>Positive reinforcement is a powerful and humane training method that focuses on rewarding desired behaviors, making it more likely your pet will repeat them. This approach builds trust, strengthens your bond, and makes learning enjoyable for both you and your furry friend.</p>
-                <h4>What is Positive Reinforcement?</h4>
-                <p>At its core, positive reinforcement involves adding something desirable (a "reinforcer") to the environment immediately after a desired behavior occurs. This makes the pet associate the behavior with a positive outcome, thus increasing the likelihood of that behavior happening again.</p>
-                <ol>
-                    <li><strong>Timeliness:</strong> The reward must be given within 1-3 seconds of the behavior to create a clear association.</li>
-                    <li><strong>Consistency:</strong> Everyone in the household should use the same cues and rewards for the same behaviors.</li>
-                    <li><strong>High-Value Rewards:</strong> Use treats, praise, toys, or petting that your pet truly loves.</li>
-                    <li><strong>Short Sessions:</strong> Keep training sessions brief (5-10 minutes) and fun, especially for puppies/kittens or easily distracted pets.</li>
-                </ol>
-                <h4>Getting Started: The Basics</h4>
-                <ul>
-                    <li><strong>Identify Desired Behavior:</strong> What do you want your pet to do? (e.g., sit, stay, come, lie down).</li>
-                    <li><strong>Lure and Capture:</strong>
-                        <ul>
-                            <li><strong>Luring:</strong> Use a treat to guide your pet into the desired position (e.g., move a treat over their head to make them sit).</li>
-                            <li><strong>Capturing:</strong> Reward your pet when they *naturally* perform the desired behavior (e.g., if they sit on their own, immediately mark and reward).</li>
-                        </ul>
-                    </li>
-                    <li><strong>Mark the Behavior:</strong> Use a verbal marker ("Yes!" or "Good!") or a clicker at the exact moment your pet performs the desired action. The marker signals to your pet *what* they are being rewarded for.</li>
-                    <li><strong>Reward:</strong> Immediately follow the marker with a high-value treat or praise.</li>
-                    <li><strong>Add a Cue:</strong> Once your pet consistently performs the behavior with the lure/capture and marker, start adding a verbal cue (e.g., say "Sit" just before luring them into a sit).</li>
-                </ul>
-                <h4>Addressing Common Behavioral Issues</h4>
-                <p>Positive reinforcement is also effective for managing unwanted behaviors by teaching an alternative, desirable behavior.</p>
-                <ul>
-                    <li><strong>Jumping:</strong> Instead of scolding, ignore the jumping. When your pet's paws are on the floor, immediately reward. Teach "sit" as an alternative.</li>
-                    <li><strong>Excessive Barking:</strong> Identify the trigger. Teach a "quiet" command by rewarding silence after a bark, or reward them for being quiet when the trigger appears.</li>
-                    <li><strong>Chewing Inappropriately:</strong> Provide appropriate chew toys and generously reward your pet when they chew on those. Make inappropriate items less accessible.</li>
-                    <li><strong>Training Roadmaps:</strong> Step-by-step training plans adapted to its learning style.</li>
-                </ul>
-                <h4>Building a Strong Bond</h4>
-                <ul>
-                    <li><strong>Trust:</strong> Your pet learns to trust you as a source of good things.</li>
-                    <li><strong>Confidence:</strong> Successful training builds your pet's confidence and reduces anxiety.</li>
-                    <li><strong>Communication:</strong> Both of you learn to understand each other's signals better.</li>
-                    <li><strong>Enjoyment:</strong> Training becomes a fun activity you both look forward to, not a chore.</li>
-                </ul>
-                <p>Remember to be patient and consistent. Every pet learns at their own pace. Celebrate small successes, and enjoy the journey of learning and growing with your beloved companion!</p>
-            `
-        },
-        {
-            title: "Separation Anxiety Solutions: Strategies to Ease Your Pet's Stress When Left Alone",
-            summary: "Does your pet get stressed when you leave? Separation anxiety is a common issue, but there are effective strategies to help your pet feel more secure when alone. Learn about behavioral modifications, environmental enrichment, and when to seek professional help to alleviate your pet's distress.",
-            content: `
-                <p>Separation anxiety is a common and distressing condition for many pets, particularly dogs, where they experience excessive anxiety when separated from their guardians. Symptoms can range from destructive behavior and excessive vocalization to inappropriate urination/defecation. Addressing separation anxiety requires patience, consistency, and often a multi-faceted approach.</p>
-                <h4>Understanding the Cause</h4>
-                <p>Separation anxiety is often triggered by sudden changes in routine, new environments, or traumatic experiences. It's not about your pet being "naughty" or "vindictive"; it's a genuine panic response.</p>
-                <h4>1. Desensitization and Counter-Conditioning</h4>
-                <p>This is the cornerstone of treating separation anxiety. The goal is to gradually accustom your pet to your departure cues and associate being alone with positive experiences.</p>
-                <ul>
-                    <li><strong>Practice Departures:</strong> Start with very short "practice" departures. Put on your coat, pick up your keys, but don't leave. If your pet remains calm, reward them. Gradually increase the duration you are out of sight (e.g., step out the door for 5 seconds, then 10, then 30).</li>
-                    <li><strong>Fake Cues:</strong> Desensitize your pet to your "leaving" cues (picking up keys, putting on shoes) by doing them randomly throughout the day without actually leaving.</li>
-                    <li><strong>Positive Associations:</strong> When you do leave, give your pet a high-value, long-lasting treat or a puzzle toy (e.g., Kong stuffed with peanut butter) that will keep them occupied for at least 15-20 minutes. Only give this item when you leave and take it away when you return, so it retains its special "leaving" association.</li>
-                </ul>
-                <h4>2. Create a Safe and Comfortable Space</h4>
-                <ul>
-                    <li><strong>Den/Crate Training:</strong> For dogs, a comfortable crate can become a safe haven. Introduce it gradually and positively. Never use the crate as punishment.</li>
-                    <li><strong>Comfort Items:</strong> Leave a worn piece of your clothing (like a t-shirt) with your scent to provide comfort.</li>
-                    <li><strong>Calming Aids:</strong> Consider vet-approved calming pheromone diffusers (e.g., Adaptil for dogs, Feliway for cats), calming treats, or calming music/TV specifically designed for pets.</li>
-                </ul>
-                <h4>3. Exercise and Mental Stimulation</h4>
-                <p>A tired pet is often a calmer pet. Ensure your pet gets sufficient physical exercise and mental stimulation before you leave.</p>
-                <ul>
-                    <li><strong>Morning Exercise:</strong> A long walk, a game of fetch, or a vigorous play session can help burn off excess energy.</li>
-                    <li><strong>Puzzle Toys:</strong> Provide interactive toys that alleviate boredom and keep their minds engaged while you're away.</li>
-                </ul>
-                <h4>4. Avoid Dramatic Departures and Greetings</h4>
-                <p>Keep your arrivals and departures low-key. Excessive fuss can heighten your pet's anxiety.</p>
-                <ul>
-                    <li><strong>Ignore for a Few Minutes:</strong> When you arrive home, ignore your pet for the first few minutes until they calm down, then greet them calmly.</li>
-                    <li><strong>No Emotional Farewells:</strong> Don't make a big deal out of leaving. This can increase their anticipation and anxiety.</li>
-                </ul>
-                <h4>When to Seek Professional Help</h4>
-                <p>If your pet's separation anxiety is severe (e.g., self-harm, severe destruction, constant panic), it's crucial to consult a professional:</p>
-                <ul>
-                    <li><strong>Veterinarian:</strong> Rule out any underlying medical conditions. They may also discuss medication options in conjunction with behavioral therapy.</li>
-                    <li><strong>Certified Professional Dog Trainer (CPDT) or Certified Applied Animal Behaviorist (CAAB):</strong> These specialists can provide tailored behavioral modification plans and guidance.</li>
-                </ul>
-                <p>Treating separation anxiety is a marathon, not a sprint. Be patient, consistent, and celebrate small victories. With the right approach, you can help your pet feel more secure and content when you're away.</p>
-            `
-        }
+        { title: "Canine Body Language", summary: "Learn what that tail wag really means.", content: "<p>Dogs speak with their bodies...</p> (Full content would be here)" },
+        { title: "Feline Communication", summary: "Become a cat whisperer today.", content: "<p>Cats are subtle creatures...</p>" },
+        { title: "Optimal Nutrition", summary: "Puppies, Adults, and Seniors.", content: "<p>Food fuels life...</p>" },
+        { title: "Positive Training", summary: "Reward-based learning works best.", content: "<p>Treats > Scolding...</p>" },
+        { title: "Separation Anxiety", summary: "Helping your pet feel safe alone.", content: "<p>Leaving home doesn't have to be scary...</p>" }
     ];
 
     const articlesContainer = document.getElementById('articlesContainer');
 
     function renderArticleSummaries() {
-        if (!articlesContainer) return; // Exit if container not found
-
-        articlesContainer.innerHTML = ''; // Clear existing content
-
+        if (!articlesContainer) return;
+        articlesContainer.innerHTML = '';
         articlesData.forEach((article, index) => {
-            const articleCard = document.createElement('div');
-            articleCard.className = 'article-card';
-            articleCard.innerHTML = `
-                <h3>${article.title}</h3>
-                <p>${article.summary}</p>
-                <a href="#" class="read-more-link" data-article-index="${index}">Read More &rarr;</a>
-            `;
-            articlesContainer.appendChild(articleCard);
+            const card = document.createElement('div');
+            card.className = 'article-card';
+            card.innerHTML = `<h3>${article.title}</h3><p>${article.summary}</p><a href="#" class="read-more-link" data-index="${index}">Read Article</a>`;
+            articlesContainer.appendChild(card);
         });
 
-        // Attach event listeners to "Read More" links
-        articlesContainer.querySelectorAll('.read-more-link').forEach(link => {
+        document.querySelectorAll('.read-more-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const index = parseInt(e.target.dataset.articleIndex);
-                const selectedArticle = articlesData[index];
-                if (selectedArticle) {
-                    showArticleModal(selectedArticle.title, selectedArticle.content);
-                }
+                const art = articlesData[e.target.dataset.index];
+                showArticleModal(art.title, art.content); // Simplified content for demo
             });
         });
     }
 
-    // Initial section to show on page load - will be overridden by onAuthStateChanged if user logged in
-    showSection('analyzer');
-
-    // Render articles when the page loads
     document.addEventListener('DOMContentLoaded', renderArticleSummaries);
-
 </script>
 </body>
 </html>
-
