@@ -4,29 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pet'emote | Understand Your Pet</title>
-    <!-- Poppins Font for consistent design -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         /* Variables and Reset */
         :root {
-            --primary-color: #8A4DC4; /* Darker Lavender Dream Primary */
-            --primary-hover: #723BAA; /* Even Darker Lavender Dream */
-            --bg-light: #f0f4f8; /* Light blue-gray background */
-            --bg-dark: #121212; /* Very Dark Background for contrast */
+            /* Palette: Warm & Playful */
+            --primary-color: #FF6B6B; /* Coral / Love */
+            --primary-hover: #EE5253; 
+            --accent-color: #4ECDC4; /* Mint / Calm */
+            
+            --bg-light: #FFF9F0; /* Warm Cream */
+            --bg-dark: #2D2424; /* Dark Cocoa */
+            
             --card-bg-light: #ffffff;
-            --card-bg-dark: #1e1e1e; /* Darker card background for contrast */
-            --text-color-light: #2d3748; /* Dark gray text */
-            --text-color-dark: #e0e0e0; /* Lighter gray text for dark mode */
-            --border-color-light: #e2e8f0;
-            --border-color-dark: #3a3a3a; /* Darker border for dark mode */
-            --shadow-light: rgba(0, 0, 0, 0.15); /* Slightly darker shadow for light mode */
-            --shadow-dark: rgba(0, 0, 0, 0.6); /* Adjusted for better dark mode visibility */
-            --header-bg-light: #ffffff;
-            --header-bg-dark: #1e1e1e; /* Consistent with card background */
+            --card-bg-dark: #3A3030; /* Lighter Cocoa */
+            
+            --text-color-light: #4A403A; /* Dark Brown Text */
+            --text-color-dark: #F0E6D2; /* Cream Text */
+            
+            --border-color-light: #F0E6D2;
+            --border-color-dark: #5C4B4B;
+            
+            --shadow-light: 0 10px 30px rgba(74, 64, 58, 0.08);
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.4);
+            
+            --header-bg-light: rgba(255, 255, 255, 0.95);
+            --header-bg-dark: rgba(58, 48, 48, 0.95);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Nunito', sans-serif; /* Rounded font */
             margin: 0;
             padding: 0;
             background-color: var(--bg-light);
@@ -36,22 +46,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Subtle playful background pattern */
+            background-image: radial-gradient(var(--border-color-light) 2px, transparent 2px);
+            background-size: 30px 30px;
         }
 
         /* Dark Mode Styles */
         body.dark {
-            --bg-light: #121212;
-            --bg-dark: #121212;
-            --card-bg-light: #1e1e1e;
-            --card-bg-dark: #1e1e1e;
-            --text-color-light: #e0e0e0;
-            --text-color-dark: #e0e0e0;
-            --border-color-light: #3a3a3a;
-            --border-color-dark: #4a4a4a;
-            --shadow-light: rgba(0, 0, 0, 0.6);
-            --shadow-dark: rgba(0, 0, 0, 0.8);
-            --header-bg-light: #1e1e1e;
-            --header-bg-dark: #1e1e1e;
+            --bg-light: var(--bg-dark); /* Remap for ease */
+            --text-color-light: var(--text-color-dark);
+            background-image: radial-gradient(#3a3030 2px, transparent 2px);
         }
 
         /* Global Styles */
@@ -63,14 +67,20 @@
         header {
             width: 100%;
             background-color: var(--header-bg-light);
+            backdrop-filter: blur(10px); /* Frosted glass effect */
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 15px 40px;
-            box-shadow: 0 4px 12px var(--shadow-light);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 3px solid var(--accent-color); /* Playful bottom border */
+        }
+        body.dark header {
+            background-color: var(--header-bg-dark);
+            border-bottom-color: var(--primary-color);
         }
 
         header .logo-container {
@@ -79,21 +89,22 @@
         }
 
         header img.logo {
-            height: 80px; /* Adjusted logo size for better fit */
-            width: 80px;
+            height: 60px;
+            width: 60px;
             margin-right: 15px;
-            border-radius: 8px;
+            border-radius: 50%; /* Circular logo */
             object-fit: cover;
+            border: 3px solid var(--primary-color);
+            background: white;
+            padding: 2px;
         }
 
         header h1.site-title {
             font-size: 28px;
-            color: var(--text-color-light);
+            color: var(--primary-color);
             margin: 0;
-            font-weight: 700;
-        }
-        body.dark header h1.site-title {
-            color: var(--text-color-dark);
+            font-weight: 800; /* Extra bold for friendliness */
+            letter-spacing: -0.5px;
         }
 
         nav {
@@ -102,257 +113,233 @@
         }
 
         nav a {
-            margin-left: 30px;
+            margin-left: 25px;
             text-decoration: none;
             color: var(--text-color-light);
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            font-size: 17px;
+            transition: all 0.3s ease;
             position: relative;
-        }
-        body.dark nav a {
-            color: var(--text-color-dark);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            display: block;
-            margin-top: 5px;
-            right: 0;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
         }
 
-        nav a:hover::after, nav a.active-nav-link::after {
-            width: 100%;
-            left: 0;
-            background: var(--primary-color);
-        }
         nav a:hover, nav a.active-nav-link {
-            color: var(--primary-color);
+            color: white;
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
         }
+        
+        /* Removed the underline effect in favor of pill-button style for nav */
+        nav a::after { display: none; }
 
         /* Main Content Area */
         main {
-            width: 100%;
-            max-width: 960px;
-            padding: 40px 20px;
+            width: 90%;
+            max-width: 900px;
+            padding: 50px 40px;
             margin: 40px auto;
             background-color: var(--card-bg-light);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px var(--shadow-light);
+            border-radius: 30px; /* Very rounded corners */
+            box-shadow: var(--shadow-light);
             overflow: hidden;
             position: relative;
+            border: 1px solid var(--border-color-light);
+        }
+        body.dark main {
+            background-color: var(--card-bg-dark);
+            border-color: var(--border-color-dark);
+            box-shadow: var(--shadow-dark);
         }
 
         /* Section Transitions */
         section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            padding: 20px;
-            max-width: 700px;
+            transform: scale(0.98) translateY(10px); /* Subtle pop-up effect */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 10px;
+            max-width: 750px;
             margin: 0 auto;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         section.active {
             opacity: 1;
-            transform: translateY(0);
-            display: block; /* Show active section */
+            transform: scale(1) translateY(0);
+            display: block;
         }
 
         h2.section-heading {
             text-align: center;
-            margin-bottom: 35px;
-            font-weight: 700;
+            margin-bottom: 40px;
+            font-weight: 800;
             color: var(--primary-color);
-            font-size: 32px;
+            font-size: 36px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
         }
 
-        h3, h4 {
-            color: var(--text-color-light);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: 600;
+        h3 {
+            color: var(--accent-color); /* Mint headers */
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
-        body.dark h3, body.dark h4 {
-            color: var(--text-color-dark);
-        }
-        h3 { font-size: 24px; }
-        h4 { font-size: 20px; }
+        body.dark h3 { color: var(--accent-color); }
 
         p {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
             color: var(--text-color-light);
-        }
-        body.dark p {
-            color: var(--text-color-dark);
         }
 
         ul.features-list {
             list-style: none;
             padding-left: 0;
             margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
 
         ul.features-list li {
             background-color: var(--bg-light);
-            padding: 15px 25px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow-light);
-            font-weight: 500;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.05); /* Fun blocky shadow */
+            font-weight: 600;
+            transition: transform 0.2s ease;
+            border: 2px solid transparent;
+            text-align: center;
         }
-        body.dark ul.features-list li {
-            background-color: var(--card-bg-dark);
-        }
+        
         ul.features-list li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-light);
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+        
+        body.dark ul.features-list li {
+            background-color: var(--bg-dark);
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
         }
 
-        /* Form specific styling for login/signup */
+        /* Form specific styling */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+            margin-bottom: 10px;
+            font-weight: 700;
             color: var(--text-color-light);
-        }
-        body.dark .form-group label {
-            color: var(--text-color-dark);
+            margin-left: 5px;
         }
 
         .form-group input[type="email"],
         .form-group input[type="password"],
-        .form-group input[type="text"] { /* Added text type for signup name */
+        .form-group input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color-light);
-            border-radius: 8px;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color-light);
+            border-radius: 15px;
             font-size: 16px;
             background-color: var(--bg-light);
             color: var(--text-color-light);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
         }
         body.dark .form-group input {
-            background-color: var(--card-bg-dark);
+            background-color: var(--bg-dark);
             border-color: var(--border-color-dark);
-            color: var(--text-color-dark);
         }
         .form-group input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(138, 77, 196, 0.2); /* primary-color with transparency */
+            border-color: var(--accent-color);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.2);
         }
+        body.dark .form-group input:focus {
+            background-color: var(--card-bg-dark);
+        }
+
         .form-link {
             text-align: center;
-            margin-top: 20px;
-            color: var(--text-color-light);
-        }
-        body.dark .form-link {
-            color: var(--text-color-dark);
+            margin-top: 25px;
         }
         .form-link a {
             color: var(--primary-color);
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            border-bottom: 2px dotted var(--primary-color);
         }
         .form-link a:hover {
             color: var(--primary-hover);
+            border-bottom-style: solid;
         }
 
         .form-button {
             background-color: var(--primary-color);
             color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 16px 30px;
+            border-radius: 50px; /* Pill shape */
+            font-weight: 800;
             font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
             border: none;
             width: 100%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            margin-top: 10px;
+            font-family: 'Nunito', sans-serif;
         }
         .form-button:hover {
             background-color: var(--primary-hover);
-            transform: translateY(-2px);
-        }
-        .form-button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
         }
 
         .or-divider {
             text-align: center;
-            margin: 20px 0;
+            margin: 25px 0;
             color: var(--text-color-light);
             position: relative;
-        }
-        .or-divider::before,
-        .or-divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background-color: var(--border-color-light);
-        }
-        .or-divider::before { left: 0; }
-        .or-divider::after { right: 0; }
-        body.dark .or-divider {
-            color: var(--text-color-dark);
-        }
-        body.dark .or-divider::before,
-        body.dark .or-divider::after {
-            background-color: var(--border-color-dark);
+            font-weight: 600;
+            font-size: 14px;
+            opacity: 0.6;
         }
 
         .google-signin-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #4285F4; /* Google Blue */
-            color: white;
-            border: none;
-            border-radius: 8px;
+            background-color: #fff;
+            color: #757575;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px; /* Pill shape */
             padding: 12px 15px;
             font-size: 16px;
             cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 700;
+            transition: all 0.3s ease;
             width: 100%;
-            margin-top: 15px;
-            gap: 10px;
+            gap: 15px;
+            font-family: 'Nunito', sans-serif;
+        }
+        body.dark .google-signin-button {
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
+            color: var(--text-color-dark);
         }
 
         .google-signin-button:hover {
-            background-color: #357ae8; /* Darker Google Blue */
+            background-color: #f8f8f8;
+            border-color: #c0c0c0;
             transform: translateY(-2px);
         }
-
-        .google-signin-button img {
-            height: 24px;
-            width: 24px;
-            background-color: white;
-            border-radius: 2px;
-            padding: 2px;
+        body.dark .google-signin-button:hover {
+            background-color: #3a3030;
         }
 
         /* Modal Styles */
@@ -365,58 +352,50 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(45, 36, 36, 0.7); /* Darker backdrop */
+            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
         }
         .modal-content {
             background-color: var(--card-bg-light);
             margin: auto;
-            padding: 20px;
-            border: 1px solid var(--border-color-light);
-            width: 80%;
+            padding: 30px;
+            border: none;
+            width: 90%;
             max-width: 400px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--shadow-light);
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             text-align: center;
             position: relative;
         }
         body.dark .modal-content {
             background-color: var(--card-bg-dark);
-            border-color: var(--border-color-dark);
         }
         .close-button {
             color: var(--text-color-light);
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             position: absolute;
             top: 10px;
-            right: 15px;
+            right: 20px;
             cursor: pointer;
-        }
-        body.dark .close-button {
-            color: var(--text-color-dark);
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: var(--primary-color);
-            text-decoration: none;
-            cursor: pointer;
+            line-height: 1;
         }
         #modalOkButton {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
             border: none;
-            margin-top: 15px;
+            margin-top: 20px;
+            font-family: 'Nunito', sans-serif;
         }
         #modalOkButton:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.4);
         }
 
 
@@ -424,76 +403,69 @@
         .toggle-dark {
             position: relative;
             display: inline-block;
-            width: 55px;
-            height: 30px;
-            border-radius: 30px;
+            width: 60px;
+            height: 34px;
+            border-radius: 34px;
             background-color: var(--border-color-light);
             cursor: pointer;
             transition: background-color 0.3s ease;
             vertical-align: middle;
             margin-left: 20px;
-            border: none;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+            border: 2px solid transparent;
         }
         body.dark .toggle-dark {
-            background-color: var(--border-color-dark);
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
         }
 
         .toggle-dark input {
             opacity: 0;
             width: 0;
             height: 0;
-            position: absolute;
-            left: -9999px;
         }
 
         .toggle-thumb {
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
+            top: 2px;
+            left: 2px;
+            width: 26px;
+            height: 26px;
             background-color: var(--primary-color);
             border-radius: 50%;
-            transition: left 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy transition */
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>');
+            background-size: 14px;
+            background-repeat: no-repeat;
+            background-position: center;
         }
+        
         body.dark .toggle-dark input:checked + .toggle-thumb {
-            background-color: #f0f0f0; /* Light thumb on dark checked */
-        }
-
-
-        .toggle-dark input:checked + .toggle-thumb {
             left: 28px;
-            transform: rotate(360deg);
+            background-color: var(--accent-color);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>');
         }
-
 
         /* Footer */
         footer {
             width: 100%;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
-            background-color: var(--header-bg-light);
+            background-color: transparent;
             color: var(--text-color-light);
             font-size: 14px;
             margin-top: auto;
-            box-shadow: 0 -2px 8px var(--shadow-light);
-            border-top: 1px solid var(--border-color-light);
+            border-top: none;
+            font-weight: 600;
         }
-        body.dark footer {
-            background-color: var(--header-bg-dark);
-            color: var(--text-color-dark);
-            border-top-color: var(--border-color-dark);
-        }
-
 
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 padding: 15px 20px;
-                text-align: center;
+                border-bottom-right-radius: 20px;
+                border-bottom-left-radius: 20px;
             }
             header .logo-container {
                 margin-bottom: 15px;
@@ -501,51 +473,19 @@
             nav {
                 flex-wrap: wrap;
                 justify-content: center;
+                width: 100%;
             }
             nav a {
-                margin: 0 15px 10px;
-            }
-            header h1.site-title {
-                font-size: 24px;
+                margin: 5px;
+                font-size: 15px;
             }
             main {
-                margin: 20px auto;
-                padding: 20px 15px;
+                width: 95%;
+                padding: 30px 20px;
+                border-radius: 20px;
             }
             h2.section-heading {
                 font-size: 28px;
-                margin-bottom: 25px;
-            }
-            ul.features-list li {
-                padding: 12px 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header img.logo {
-                height: 50px;
-                width: 50px;
-            }
-            header h1.site-title {
-                font-size: 20px;
-            }
-            nav a {
-                margin: 0 10px 8px;
-                font-size: 14px;
-            }
-            main {
-                padding: 15px;
-                margin: 15px;
-            }
-            h2.section-heading {
-                font-size: 24px;
-            }
-            p, ul.features-list li, .form-button {
-                font-size: 15px;
-            }
-            .form-button {
-                padding: 12px;
-                font-size: 16px;
             }
         }
     </style>
@@ -554,8 +494,7 @@
 
 <header>
     <div class="logo-container">
-        <!-- New Logo: Placeholder JPEG for a paw print -->
-        <img src="logo.jpg" alt="Pet'emote Logo" class="logo" />
+        <img src="https://img.icons8.com/color/96/dog-paw-print.png" alt="Pet'emote Logo" class="logo" />
         <h1 class="site-title">Pet'emote</h1>
     </div>
     <nav>
@@ -571,108 +510,105 @@
 </header>
 
 <main>
-    <!-- About Section -->
     <section id="about" class="active">
-        <h2 class="section-heading">About Pet'emote</h2>
+        <h2 class="section-heading">Welcome to Pet'emote! 🐾</h2>
         <h3>What is Pet'emote?</h3>
-        <p><strong>Pet'emote</strong> is an innovative tool designed to help you understand your beloved cats and dogs better. We provide resources and insights to help you connect more deeply with your furry companions.</p>
+        <p><strong>Pet'emote</strong> is your friendly companion for understanding your beloved cats and dogs. We bridge the gap between "woof" and words, helping you connect deeply with your furry family members.</p>
     
         <h3>Our Mission</h3>
-        <p>We believe a deeper understanding of our pets' feelings can lead to stronger bonds and happier lives for both pets and their owners. Pet'emote aims to bridge the communication gap, allowing you to respond more effectively to your furry friends' needs.</p>
+        <p>We believe happy pets make happy homes. By understanding the emotions behind the tail wags and purrs, you can build a bond that lasts a lifetime.</p>
     
-        <h3>Why Join Pet'emote?</h3>
+        <h3>Why Join our Pack?</h3>
         <ul class="features-list">
-            <li><strong>Analyzer:</strong> Gain insights into your pet's behavior.</li>
-            <li><strong>Articles:</strong> Access a library of articles on pet behavior, health, and training.</li>
-            <li><strong>Personalized Content:</strong> Get tailored recommendations based on your pet's needs.</li>
-            <li><strong>Profile:</strong> View and manage your personal details including User ID, Email, and Display Name.</li>
+            <li><strong>🔍 Analyzer</strong><br>Instant insights into behavior.</li>
+            <li><strong>📚 Library</strong><br>Expert articles on health & training.</li>
+            <li><strong>🍖 Tailored</strong><br>Content customized for your breed.</li>
+            <li><strong>👤 Profile</strong><br>Track your pet parenting journey.</li>
         </ul>
-        <p>Join our community and embark on a journey to a more harmonious life with your pets!</p>
+        <div style="text-align:center; margin-top:30px;">
+            <p style="font-weight:700; color:var(--primary-color);">Ready to speak their language?</p>
+        </div>
     </section>
 
-    <!-- How It Works Section -->
     <section id="how-it-works">
-        <h2 class="section-heading">How Pet'emote Works</h2>
-        <h3>Getting Started is Easy!</h3>
+        <h2 class="section-heading">How It Works</h2>
+        <h3>Getting Started is Simple</h3>
         <ul class="features-list">
-            <li><strong>Step 1: Sign Up/Login</strong><br>Create a free account or log in if you're already a member.</li>
-            <li><strong>Step 2: Explore Content</strong><br>Browse through our extensive collection of articles, tips, and guides.</li>
-            <li><strong>Step 3: Connect & Share</strong><br>Engage with our vibrant community forums and share your pet stories.</li>
+            <li><strong>1. Join the Pack</strong><br>Create your free account in seconds.</li>
+            <li><strong>2. sniff Around</strong><br>Explore our library of tips and guides.</li>
+            <li><strong>3. Share the Love</strong><br>Connect with other pet parents.</li>
         </ul>
-        <h3>Our Content Includes:</h3>
-        <ul>
-            <li>Understanding Pet Body Language</li>
-            <li>Nutrition and Diet Guides</li>
-            <li>Training Tips for Dogs and Cats</li>
-            <li>Health and Wellness Advice</li>
-        </ul>
+        <h3>What you'll learn:</h3>
+        <div style="background-color: var(--bg-light); padding: 20px; border-radius: 20px; border-left: 5px solid var(--accent-color);">
+            <p>🐶 <strong>Body Language:</strong> What does that ear flick mean?</p>
+            <p>🥗 <strong>Nutrition:</strong> Best foods for a shiny coat.</p>
+            <p>🎾 <strong>Training:</strong> Fun tricks for dogs and cats.</p>
+        </div>
     </section>
 
-    <!-- Login Section -->
     <section id="login">
-        <h2 class="section-heading">Login to Pet'emote</h2>
+        <h2 class="section-heading">Welcome Back!</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label for="loginEmail">Email:</label>
-                <input type="email" id="loginEmail" name="email" required />
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" />
             </div>
             <div class="form-group">
-                <label for="loginPassword">Password:</label>
-                <input type="password" id="loginPassword" name="password" required />
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="password" required placeholder="••••••••" />
             </div>
             <button type="submit" class="form-button">Login</button>
-            <div class="or-divider">OR</div>
+            <div class="or-divider">Or connect with</div>
             <button type="button" class="google-signin-button" id="googleLoginButton">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo"/>
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo" style="width:24px; height:24px;"/>
                 Sign in with Google
             </button>
         </form>
-        <p class="form-link">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p>
+        <p class="form-link">New here? <a href="#" id="switchToSignup">Create an account</a></p>
     </section>
 
-    <!-- Sign Up Section -->
     <section id="signup">
-        <h2 class="section-heading">Sign Up for Pet'emote</h2>
+        <h2 class="section-heading">Join the Family</h2>
         <form id="signupForm">
             <div class="form-group">
-                <label for="signupName">Full Name:</label>
-                <input type="text" id="signupName" name="fullName" required />
+                <label for="signupName">Your Full Name</label>
+                <input type="text" id="signupName" name="fullName" required placeholder="John Doe" />
             </div>
             <div class="form-group">
-                <label for="signupEmail">Email:</label>
-                <input type="email" id="signupEmail" name="email" required />
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" name="email" required placeholder="name@example.com" />
             </div>
             <div class="form-group">
-                <label for="signupPassword">Password:</label>
-                <input type="password" id="signupPassword" name="password" required />
+                <label for="signupPassword">Create Password</label>
+                <input type="password" id="signupPassword" name="password" required placeholder="Minimum 6 characters" />
             </div>
             <div class="form-group">
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirm_password" required />
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirm_password" required placeholder="Match the password above" />
             </div>
-            <button type="submit" class="form-button">Sign Up</button>
-            <div class="or-divider">OR</div>
+            <button type="submit" class="form-button">Create Account</button>
+            <div class="or-divider">Or join with</div>
             <button type="button" class="google-signin-button" id="googleSignupButton">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo"/>
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo" style="width:24px; height:24px;"/>
                 Sign up with Google
             </button>
         </form>
-        <p class="form-link">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+        <p class="form-link">Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
     </section>
 
 </main>
 
-<!-- Modal for messages -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
+        <h3 style="margin-top:0; color:var(--primary-color);">Woof! Notice</h3>
         <p id="modalMessage"></p>
-        <button id="modalOkButton">OK</button>
+        <button id="modalOkButton">Got it!</button>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2025 Pet'emote. All rights reserved.</p>
+    <p>&copy; 2025 Pet'emote. Made with ❤️ for pets.</p>
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -690,7 +626,6 @@
       appId: "1:560806298260:web:8724cda11543d877d52a81",
       measurementId: "G-Q28JF0E294"
     };
-
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -800,7 +735,7 @@
         if (isDark) {
             document.body.classList.add('dark');
             if (darkToggle) darkToggle.checked = true;
-            localStorage.setItem('petEmoteDarkMode', 'enabled'); // Unique key for this app
+            localStorage.setItem('petEmoteDarkMode', 'enabled'); 
         } else {
             document.body.classList.remove('dark');
             if (darkToggle) darkToggle.checked = false;
@@ -862,7 +797,7 @@
                 await saveUserProfile(user.uid, user.email, user.displayName, 'emailPassword');
                 showModal(`Welcome back, ${user.displayName || user.email}! Redirecting to the app...`);
                 // Redirect to your main application page
-                window.location.href = 'main.html'; // Changed from homepage.html
+                window.location.href = 'main.html'; 
             } catch (error) {
                 console.error("Email/Password Login Error:", error);
                 let errorMessage = "Login failed. Please check your email and password.";
@@ -913,7 +848,7 @@
                 await saveUserProfile(user.uid, user.email, fullName, 'emailPassword');
                 showModal(`Account created successfully for ${fullName}! Redirecting to the app...`);
                 signupForm.reset();
-                window.location.href = 'main.html'; // Changed from homepage.html
+                window.location.href = 'main.html';
             } catch (error) {
                 console.error("Email/Password Signup Error:", error);
                 let errorMessage = "Account creation failed.";
@@ -941,7 +876,7 @@
             const user = result.user;
             await saveUserProfile(user.uid, user.email, user.displayName, 'google.com');
             showModal(`Welcome, ${user.displayName || user.email}! Redirecting to the app...`);
-            window.location.href = 'main.html'; // Changed from homepage.html
+            window.location.href = 'main.html'; 
         } catch (error) {
             console.error("Google Sign-In Error:", error);
             let errorMessage = "Failed to sign in with Google.";
