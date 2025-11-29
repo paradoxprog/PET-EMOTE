@@ -811,8 +811,9 @@
         appId: "1:560806298260:web:8724cda11543d877d52a81",
         measurementId: "G-Q28JF0E294"
     };
-    const GEMINI_API_KEY = "AIzaSyAWA9EDmWqDkT_PqAcvOSpVoWl2OJRkw2E";
-
+    
+    // SECURITY UPDATE: The GEMINI_API_KEY has been removed from here.
+    // We will now call our secure backend endpoint "/api/gemini" instead.
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
@@ -1203,7 +1204,8 @@
                     ],
                 };
                 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+                // SECURITY UPDATE: Using local backend route instead of direct Google API
+                const apiUrl = '/api/gemini';
                 const response = await fetchWithExponentialBackoff(apiUrl, payload);
 
                 if (!response || !response.ok) {
@@ -1283,7 +1285,8 @@
                     }],
                 };
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+                // SECURITY UPDATE: Using local backend route instead of direct Google API
+                const apiUrl = '/api/gemini';
                 const response = await fetchWithExponentialBackoff(apiUrl, payload);
 
                 if (!response || !response.ok) {
@@ -1347,7 +1350,8 @@
                 contents: chatHistory,
             };
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+            // SECURITY UPDATE: Using local backend route instead of direct Google API
+            const apiUrl = '/api/gemini';
             const response = await fetchWithExponentialBackoff(apiUrl, payload);
 
             if (!response || !response.ok) {
@@ -1666,7 +1670,3 @@
 </script>
 </body>
 </html>
-
-
-
-
