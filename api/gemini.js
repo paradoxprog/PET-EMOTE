@@ -1,9 +1,9 @@
 export default async function handler(req, res) {
-  // 1. Check for the secret key in the environment
+  // 1. Get the key from Vercel Environment Variables
   const apiKey = process.env.GEMINI_API_KEY;
-  
+
   if (!apiKey) {
-    return res.status(500).json({ error: 'Server configuration error: API Key missing' });
+    return res.status(500).json({ error: 'Server Error: API Key missing' });
   }
 
   // 2. Only allow POST requests
@@ -12,31 +12,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 3. Forward the request to Google Gemini
-    // We use the model specified in your original code: gemini-2.0-flash
+    // 3. Call Google Gemini
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(req.body), // Pass the data from the frontend
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(req.body),
       }
     );
 
     const data = await response.json();
 
-    // 4. Handle Google API errors
     if (!response.ok) {
       return res.status(response.status).json(data);
     }
 
-    // 5. Return the clean data to your frontend
     return res.status(200).json(data);
 
   } catch (error) {
-    console.error('Proxy Error:', error);
+    console.error(error);
     return res.status(500).json({ error: 'Failed to communicate with AI service' });
   }
 }
