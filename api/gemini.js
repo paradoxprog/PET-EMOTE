@@ -13,12 +13,25 @@ export default async function handler(req, res) {
 
   try {
     // 3. Call Google Gemini
+    // Note: ensure req.body has the structure { contents: [...] } as expected by Gemini
+    // Or if your frontend sends { prompt: "..." }, construct the Gemini body here.
+    // Based on your main.html logic, you are sending { prompt: "..." }, so we map it:
+    
+    const userPrompt = req.body.prompt;
+    
+    // Construct the payload expected by Gemini 2.0 Flash
+    const geminiPayload = {
+      contents: [{
+        parts: [{ text: userPrompt }]
+      }]
+    };
+
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body),
+        body: JSON.stringify(geminiPayload),
       }
     );
 
